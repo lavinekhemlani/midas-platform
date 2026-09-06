@@ -1,0 +1,393 @@
+/* ===================================================================
+   PDF Export & Print Optimized Styles
+   =================================================================== */
+
+/* PDF Export Mode - Applied during PDF generation */
+.pdf-export-mode {
+  /* Ensure consistent layout */
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 20px !important;
+  background: #ffffff !important;
+
+  /* Optimize text rendering */
+  -webkit-print-color-adjust: exact !important;
+  color-adjust: exact !important;
+  text-rendering: optimizeLegibility !important;
+  font-smoothing: antialiased !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+/* PDF Content Area - only styling when in PDF export mode */
+.pdf-export-mode #profit-loss-content {
+  border: 2px solid #374151 !important;
+  border-radius: 8px !important;
+  padding: 32px !important;
+  box-shadow: none !important;
+  background: #ffffff !important;
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Fix oklch and modern color functions for html2canvas compatibility */
+.pdf-export-mode * {
+  /* Convert common oklch colors to rgb equivalents */
+  color: rgb(55, 65, 81) !important; /* Default text color */
+}
+
+/* Override any oklch color usages with safe alternatives */
+.pdf-export-mode [style*="oklch"],
+.pdf-export-mode [style*="lab"],
+.pdf-export-mode [style*="lch"],
+.pdf-export-mode [style*="hwb"] {
+  color: rgb(55, 65, 81) !important;
+  background-color: transparent !important;
+  border-color: rgb(229, 231, 235) !important;
+}
+
+/* Force specific color overrides for common Tailwind classes */
+.pdf-export-mode .text-slate-400 { color: rgb(148, 163, 184) !important; }
+.pdf-export-mode .text-slate-500 { color: rgb(100, 116, 139) !important; }
+.pdf-export-mode .text-slate-600 { color: rgb(71, 85, 105) !important; }
+.pdf-export-mode .text-slate-700 { color: rgb(51, 65, 85) !important; }
+.pdf-export-mode .text-slate-800 { color: rgb(30, 41, 59) !important; }
+.pdf-export-mode .text-slate-900 { color: rgb(15, 23, 42) !important; }
+
+.pdf-export-mode .text-amber-500 { color: rgb(245, 158, 11) !important; }
+.pdf-export-mode .text-amber-600 { color: rgb(217, 119, 6) !important; }
+
+.pdf-export-mode .text-emerald-400 { color: rgb(52, 211, 153) !important; }
+.pdf-export-mode .text-emerald-500 { color: rgb(16, 185, 129) !important; }
+
+.pdf-export-mode .text-red-400 { color: rgb(248, 113, 113) !important; }
+.pdf-export-mode .text-red-500 { color: rgb(239, 68, 68) !important; }
+
+.pdf-export-mode .text-blue-500 { color: rgb(59, 130, 246) !important; }
+.pdf-export-mode .text-blue-600 { color: rgb(37, 99, 235) !important; }
+
+.pdf-export-mode .border-slate-200 { border-color: rgb(226, 232, 240) !important; }
+.pdf-export-mode .border-slate-300 { border-color: rgb(203, 213, 225) !important; }
+.pdf-export-mode .border-gray-200 { border-color: rgb(229, 231, 235) !important; }
+
+.pdf-export-mode .bg-slate-50 { background-color: rgb(248, 250, 252) !important; }
+.pdf-export-mode .bg-slate-100 { background-color: rgb(241, 245, 249) !important; }
+
+/* Remove glassmorphism effects for PDF clarity */
+.pdf-export-mode .glass-luxury-card,
+.pdf-export-mode .glass-component,
+.pdf-export-mode .glass-morphism {
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 8px !important;
+}
+
+/* Optimize card spacing and layout */
+.pdf-export-mode .space-y-6 > * + * {
+  margin-top: 1.5rem !important;
+}
+
+.pdf-export-mode .gap-4 {
+  gap: 1rem !important;
+}
+
+.pdf-export-mode .gap-6 {
+  gap: 1.5rem !important;
+}
+
+/* Improve typography for PDF */
+.pdf-export-mode h1,
+.pdf-export-mode h2,
+.pdf-export-mode h3,
+.pdf-export-mode h4,
+.pdf-export-mode h5,
+.pdf-export-mode h6 {
+  color: #111827 !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.pdf-export-mode p,
+.pdf-export-mode span,
+.pdf-export-mode div {
+  color: #374151 !important;
+}
+
+/* Optimize table styling for PDF */
+.pdf-export-mode table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 1rem 0 !important;
+  background: #ffffff !important;
+}
+
+.pdf-export-mode th,
+.pdf-export-mode td {
+  border: 1px solid #d1d5db !important;
+  padding: 10px 14px !important;
+  text-align: left !important;
+  vertical-align: top !important;
+  background: #ffffff !important;
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+}
+
+.pdf-export-mode th {
+  background-color: #f3f4f6 !important;
+  font-weight: 600 !important;
+  color: #111827 !important;
+  font-size: 13px !important;
+}
+
+/* Remove alternating row colors for better readability */
+.pdf-export-mode tbody tr:nth-child(even) {
+  background-color: #ffffff !important;
+}
+
+.pdf-export-mode tbody tr:nth-child(odd) {
+  background-color: #ffffff !important;
+}
+
+/* Add subtle border for row separation instead */
+.pdf-export-mode tbody tr {
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+/* Chart and SVG optimization */
+.pdf-export-mode .recharts-surface,
+.pdf-export-mode .recharts-wrapper {
+  background: #ffffff !important;
+}
+
+.pdf-export-mode svg {
+  background: #ffffff !important;
+}
+
+/* Hide interactive elements and animations */
+.pdf-export-mode .hover\:scale-105,
+.pdf-export-mode .hover\:shadow-lg,
+.pdf-export-mode .group-hover\:translate-x-1,
+.pdf-export-mode .transition,
+.pdf-export-mode .transition-all,
+.pdf-export-mode .duration-300,
+.pdf-export-mode .ease-in-out {
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Hide tooltips and dropdowns during export */
+.pdf-export-mode .tooltip,
+.pdf-export-mode [role="tooltip"],
+.pdf-export-mode .dropdown-menu {
+  display: none !important;
+}
+
+/* Optimize KPI cards for PDF */
+.pdf-export-mode .kpi-card,
+.pdf-export-mode .report-kpi {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  padding: 1rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Ensure proper text colors for dark theme elements */
+.pdf-export-mode .theme-text-primary {
+  color: #111827 !important;
+}
+
+.pdf-export-mode .theme-text-secondary {
+  color: #6b7280 !important;
+}
+
+.pdf-export-mode .text-white {
+  color: #111827 !important;
+}
+
+/* Fix button and interactive element styling */
+.pdf-export-mode button,
+.pdf-export-mode .btn {
+  background: #f3f4f6 !important;
+  color: #374151 !important;
+  border: 1px solid #d1d5db !important;
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.875rem !important;
+}
+
+/* Currency and number formatting */
+.pdf-export-mode .currency,
+.pdf-export-mode .number {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace !important;
+  font-weight: 500 !important;
+}
+
+/* Grid layout optimization */
+.pdf-export-mode .grid {
+  display: grid !important;
+  gap: 1rem !important;
+}
+
+.pdf-export-mode .grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr) !important;
+}
+
+.pdf-export-mode .grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr) !important;
+}
+
+.pdf-export-mode .grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+
+/* Flex layout optimization */
+.pdf-export-mode .flex {
+  display: flex !important;
+}
+
+.pdf-export-mode .flex-col {
+  flex-direction: column !important;
+}
+
+.pdf-export-mode .items-center {
+  align-items: center !important;
+}
+
+.pdf-export-mode .justify-between {
+  justify-content: space-between !important;
+}
+
+/* Remove shadows and glows */
+.pdf-export-mode .shadow,
+.pdf-export-mode .shadow-lg,
+.pdf-export-mode .shadow-xl,
+.pdf-export-mode .drop-shadow {
+  box-shadow: none !important;
+}
+
+/* Optimize spacing for PDF layout */
+.pdf-export-mode .container {
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+.pdf-export-mode .px-4,
+.pdf-export-mode .px-6,
+.pdf-export-mode .px-8 {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+.pdf-export-mode .py-4,
+.pdf-export-mode .py-6,
+.pdf-export-mode .py-8 {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+
+/* Fix section spacing in PDF */
+.pdf-export-mode .space-y-6 > * + * {
+  margin-top: 2rem !important;
+}
+
+/* Chart legend and axis optimization */
+.pdf-export-mode .recharts-legend-wrapper {
+  padding-bottom: 1rem !important;
+}
+
+.pdf-export-mode .recharts-cartesian-axis-tick-value {
+  fill: #374151 !important;
+  font-size: 12px !important;
+}
+
+.pdf-export-mode .recharts-text {
+  fill: #374151 !important;
+}
+
+/* Progress bars and indicators */
+.pdf-export-mode .progress-bar {
+  background: #e5e7eb !important;
+  border-radius: 4px !important;
+}
+
+.pdf-export-mode .progress-fill {
+  background: #3b82f6 !important;
+  border-radius: 4px !important;
+}
+
+/* Status indicators */
+.pdf-export-mode .status-positive {
+  color: #059669 !important;
+}
+
+.pdf-export-mode .status-negative {
+  color: #dc2626 !important;
+}
+
+.pdf-export-mode .status-neutral {
+  color: #6b7280 !important;
+}
+
+/* Page break controls */
+.pdf-export-mode .page-break-before {
+  page-break-before: always !important;
+  break-before: page !important;
+}
+
+.pdf-export-mode .page-break-after {
+  page-break-after: always !important;
+  break-after: page !important;
+}
+
+.pdf-export-mode .page-break-inside-avoid {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+/* Ensure icons are visible */
+.pdf-export-mode .lucide {
+  color: #6b7280 !important;
+  stroke-width: 1.5 !important;
+}
+
+/* Fix any remaining dark theme artifacts */
+.pdf-export-mode [class*="dark:"] {
+  /* Reset any dark theme classes */
+}
+
+/* Media query for actual print (if user prints directly) */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+}
+
+/* Loading state during PDF generation */
+.pdf-generating {
+  position: relative;
+}
+
+.pdf-generating::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+  pointer-events: none;
+}

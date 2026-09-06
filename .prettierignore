@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Cache and logs
+*.log
+npm-debug.log*
+.npm
+.cache
+
+# Environment files
+.env*
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Generated files
+*.generated.*
+public/sw.js
+public/workbox-*.js

@@ -1,0 +1,16 @@
+/* src/app/globals.css */
+
+@import './../styles/_base.css';
+@import './../styles/_theme.css';
+@import './../styles/_account.css';
+@import './../styles/_animations.css';
+@import './../styles/_components.css';
+@import './../styles/_forms.css';
+@import './../styles/_onboarding.css';
+@import './../styles/_clerk.css';
+@import './../styles/_dashboard.css';
+@import './../styles/_chat.css';
+@import './../styles/_learn.css';
+@import './../styles/_health-score.css';
+@import './../styles/print.css';
+@import './../styles/_quickbooks.css';

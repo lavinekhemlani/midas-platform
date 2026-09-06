@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midas QuickBooks Add-On — Value Proposition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    background: #fff;
+    color: #1a1a1a;
+    line-height: 1.6;
+    font-size: 10.5px;
+  }
+
+  .doc {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 48px 40px;
+  }
+
+  @media print {
+    @page { size: A4; margin: 16mm 18mm; }
+    body { font-size: 9.5px; }
+    .doc { max-width: 100%; padding: 0; }
+    .no-print { display: none !important; }
+    h2 { page-break-after: avoid; }
+    table, .callout { page-break-inside: avoid; }
+  }
+
+  /* — Typography — */
+  h1 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+
+  h2 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 4px;
+    padding-bottom: 5px;
+    border-bottom: 1.5px solid #1a1a1a;
+  }
+
+  h3 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 4px;
+  }
+
+  h4 {
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #555;
+    margin-top: 14px;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 6px;
+  }
+
+  .meta {
+    font-size: 10px;
+    color: #999;
+    margin-bottom: 36px;
+  }
+
+  p, .desc {
+    color: #444;
+    margin-bottom: 10px;
+    line-height: 1.65;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 24px 0;
+  }
+
+  /* — Lists — */
+  ul {
+    padding-left: 20px;
+    margin: 4px 0 12px 0;
+  }
+  li {
+    margin-bottom: 2px;
+    color: #333;
+  }
+
+  /* — Tables — */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 18px 0;
+    font-size: 10px;
+  }
+
+  thead th {
+    background: #f5f5f5;
+    font-weight: 600;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #555;
+    padding: 6px 10px;
+    text-align: left;
+    border-bottom: 1.5px solid #ccc;
+  }
+
+  tbody td {
+    padding: 5px 10px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+    line-height: 1.5;
+    color: #333;
+  }
+
+  td:first-child {
+    font-weight: 500;
+    color: #1a1a1a;
+  }
+
+  td:last-child {
+    color: #777;
+    font-style: italic;
+    font-size: 9.5px;
+  }
+
+  /* When table only has 2 cols, don't italicize last col */
+  .two-col td:last-child {
+    color: #333;
+    font-style: normal;
+    font-size: 10px;
+  }
+
+  tbody tr:nth-child(even) {
+    background: #fafafa;
+  }
+
+  /* — Comparison tables — */
+  .comparison-table td:nth-child(2) {
+    color: #1a1a1a;
+    font-style: normal;
+    font-size: 10px;
+  }
+  .comparison-table td:last-child {
+    color: #999;
+  }
+
+  /* — Tags — */
+  .tag {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 8.5px;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.3px;
+  }
+  .tag-green { background: #e8f5e9; color: #2e7d32; }
+  .tag-gold { background: #fff3e0; color: #e65100; }
+  .tag-gray { background: #eee; color: #555; }
+
+  /* — Callout — */
+  .callout {
+    border-left: 3px solid #1a1a1a;
+    padding: 10px 16px;
+    margin: 16px 0;
+    background: #fafafa;
+  }
+  .callout strong {
+    display: block;
+    margin-bottom: 2px;
+  }
+  .callout p {
+    margin: 0;
+    color: #333;
+  }
+
+  /* — Highlight box — */
+  .highlight-box {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    background: #fafafa;
+  }
+  .highlight-box p { margin: 0; }
+
+  /* — Stats row — */
+  .stats {
+    display: flex;
+    gap: 24px;
+    margin: 12px 0 18px 0;
+    flex-wrap: wrap;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    color: #1a1a1a;
+  }
+  .stat-label {
+    font-size: 8.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    margin-top: 1px;
+  }
+
+  /* — Threat badge — */
+  .threat {
+    font-size: 8.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #999;
+    margin-left: 8px;
+    font-style: normal;
+  }
+
+  /* — Unique tag — */
+  .unique-tag {
+    font-size: 8.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #2e7d32;
+    margin-left: 6px;
+  }
+
+  /* — Closing page — */
+  .closing {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1.5px solid #1a1a1a;
+  }
+
+  .closing h2 {
+    border: none;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 20px 0 28px 0;
+  }
+
+  .pillar-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    color: #ccc;
+    margin-bottom: 4px;
+  }
+
+  .pillar h4 {
+    text-transform: none;
+    letter-spacing: 0;
+    color: #1a1a1a;
+    font-size: 12px;
+    margin-top: 0;
+    margin-bottom: 4px;
+  }
+
+  .pillar p {
+    font-size: 9.5px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .bottom-line {
+    text-align: center;
+    padding: 16px 32px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 8px;
+  }
+
+  .bottom-line p {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-size: 13px;
+    color: #1a1a1a;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* — Improvement lists — */
+  .improve {
+    margin: 10px 0 16px 0;
+    padding: 10px 14px 10px 14px;
+    background: #fafafa;
+    border-left: 3px solid #ccc;
+  }
+  .improve-title {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #888;
+    margin-bottom: 4px;
+  }
+  .improve ul {
+    padding-left: 16px;
+    margin: 0;
+  }
+  .improve li {
+    font-size: 9.5px;
+    color: #555;
+    margin-bottom: 2px;
+  }
+
+  /* — Print button — */
+  .print-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'IBM Plex Sans', sans-serif;
+    z-index: 100;
+  }
+  .print-btn:hover { background: #333; }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">Print to PDF</button>
+
+<div class="doc">
+
+  <!-- HEADER -->
+  <h1>Midas</h1>
+  <p class="subtitle">QuickBooks Add-On &mdash; Value Proposition &amp; Competitive Analysis</p>
+  <p class="meta">Confidential &mdash; April 2026 &mdash; Zenith Financial Technologies</p>
+
+  <!-- AT A GLANCE -->
+  <h2>At a Glance</h2>
+  <p class="desc">Midas transforms QuickBooks from a passive record-keeper into an active financial intelligence platform, delivering the following across 9 dedicated pages.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-value">33+</div><div class="stat-label">Auto-Computed KPIs</div></div>
+    <div class="stat"><div class="stat-value">9</div><div class="stat-label">Dedicated Pages</div></div>
+    <div class="stat"><div class="stat-value">40+</div><div class="stat-label">QB Entities Synced</div></div>
+    <div class="stat"><div class="stat-value">6</div><div class="stat-label">AI Query Types</div></div>
+    <div class="stat"><div class="stat-value">2</div><div class="stat-label">Forecast Horizons</div></div>
+    <div class="stat"><div class="stat-value">3</div><div class="stat-label">Scenario Presets</div></div>
+  </div>
+
+  <h4>The 9 QuickBooks Pages</h4>
+  <table>
+    <thead><tr><th>Page</th><th>What It Does</th><th>Unique?</th></tr></thead>
+    <tbody>
+      <tr><td>Executive Summary</td><td>Unified command center consolidating all 3 financial statements, health score, and KPIs</td><td><span class="tag tag-green">Yes</span></td></tr>
+      <tr><td>Profit &amp; Loss</td><td>Income statement with Sankey diagrams, waterfall charts, 5 profitability ratios, EBITDA</td><td><span class="tag tag-green">Enhanced</span></td></tr>
+      <tr><td>Balance Sheet</td><td>Assets/Liabilities/Equity with 9 computed ratios (ROE, ROA, Current, Quick, D/E, etc.)</td><td><span class="tag tag-green">Enhanced</span></td></tr>
+      <tr><td>Cash Flow</td><td>Operating/Investing/Financing with FCF, burn rate, runway, cash conversion cycle</td><td><span class="tag tag-green">Enhanced</span></td></tr>
+      <tr><td>Sales</td><td>4-tab view: Overview, Customers, Products, Outstanding with 12+ KPIs &amp; drill-down</td><td><span class="tag tag-green">Enhanced</span></td></tr>
+      <tr><td>Bills</td><td>AP aging with 5-bucket visualization, status analysis, trend charts</td><td><span class="tag tag-green">Enhanced</span></td></tr>
+      <tr><td>Vendors</td><td>Vendor-centric spending with category concentration, type/status distributions</td><td><span class="tag tag-green">Enhanced</span></td></tr>
+      <tr><td>Forecasting</td><td>Dual-horizon scenario modeling with memory integration and confidence bands</td><td><span class="tag tag-gold">Entirely Unique</span></td></tr>
+      <tr><td>Journal</td><td>GL entries with balance validation, type concentration, top account activity</td><td><span class="tag tag-green">Enhanced</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>The Core Insight</strong>
+    <p>QuickBooks shows you what happened. Midas tells you what it means, what's coming, and what to do about it.</p>
+  </div>
+
+  <!-- SECTION 1: PAGE BREAKDOWN -->
+  <h2>Section 1: Page-by-Page Breakdown</h2>
+
+  <h3>1. Executive Summary Dashboard</h3>
+  <p class="desc">A unified command center consolidating all three financial statements into a single view &mdash; something QuickBooks never does.</p>
+
+  <h4>Data Captured</h4>
+  <ul>
+    <li>P&amp;L snapshot (Revenue, Expenses, Net Income)</li>
+    <li>Balance Sheet snapshot (Assets, Liabilities, Equity)</li>
+    <li>Cash Flow snapshot (Operating, Investing, Financing)</li>
+    <li>Real-time cash balance from bank accounts</li>
+    <li>Outstanding receivables &amp; payables summary</li>
+  </ul>
+
+  <h4>Midas Value-Add vs QuickBooks</h4>
+  <table>
+    <thead><tr><th>Feature</th><th>What Midas Does</th><th>QuickBooks</th></tr></thead>
+    <tbody>
+      <tr><td>Financial Health Score</td><td>Weighted 0-100 score combining profitability, liquidity, efficiency with Excellent/Good/Fair/Poor/Critical ratings</td><td>None</td></tr>
+      <tr><td>Radar Chart</td><td>4-axis visual showing metric scores at a glance</td><td>None</td></tr>
+      <tr><td>8 Computed KPIs</td><td>Gross Margin, Operating Margin, Burn Rate, Current Ratio, Quick Ratio, Working Capital, Cash Runway, Cash Balance</td><td>Manual calculation required</td></tr>
+      <tr><td>Burn Rate &amp; Runway</td><td>Auto-calculates monthly cash burn and months until depletion</td><td>No concept of this</td></tr>
+      <tr><td>Sankey Flow Diagrams</td><td>Visual flow: Assets &rarr; Liabilities/Equity</td><td>Tables only</td></tr>
+      <tr><td>Waterfall Charts</td><td>Revenue &rarr; COGS &rarr; Gross Profit &rarr; OpEx &rarr; Net Income</td><td>None</td></tr>
+      <tr><td>AI Analysis Card</td><td>LLM-generated commentary with proactive recommendations</td><td>Intuit Assist: basic Q&amp;A only</td></tr>
+      <tr><td>Bookkeeping Validation</td><td>Detects reconciliation errors automatically</td><td>Not proactive</td></tr>
+      <tr><td>Data Quality Alerts</td><td>Warns when data is partial or sync incomplete</td><td>None</td></tr>
+      <tr><td>Customizable Metrics</td><td>Pick metrics, set targets, choose revenue model (SaaS, Service, E-commerce, Manufacturing)</td><td>None</td></tr>
+      <tr><td>Educational Dialogs</td><td>Every metric has a "Learn" button with formula, context, and user's actual numbers</td><td>None</td></tr>
+    </tbody>
+  </table>
+
+  <div class="improve">
+    <div class="improve-title">What We Can Improve</div>
+    <ul>
+      <li>Custom dashboard builder &mdash; let users drag-and-drop which KPIs, charts, and summaries appear on their landing page</li>
+      <li>Industry benchmarking on the Health Score &mdash; compare against industry medians so the score has context</li>
+      <li>Period-over-period comparison directly on the dashboard (this month vs. last month delta per KPI)</li>
+      <li>AI weekly digest that proactively emails/Slacks key metric movements, risks, and actions</li>
+      <li>Server-side Redis caching to reduce 10-30s load times to &lt;1s for repeat views</li>
+      <li>Pass category-level breakdowns to the AI instead of just totals for richer, more specific insights</li>
+      <li>Add a "What changed?" section showing the biggest movers since last login</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h3>2. Profit &amp; Loss</h3>
+  <p class="desc">Full income statement with hierarchical nesting, monthly breakdowns, and advanced visualizations.</p>
+  <table>
+    <thead><tr><th>Feature</th><th>What Midas Does</th><th>QuickBooks</th></tr></thead>
+    <tbody>
+      <tr><td>5 Profitability Ratios</td><td>Gross Margin %, Operating Margin %, Net Profit Margin %, COGS Ratio, Expense Ratio</td><td>Manual calculation</td></tr>
+      <tr><td>EBITDA</td><td>Auto-calculated (Net Income + Interest + Taxes + D&amp;A)</td><td>Not provided</td></tr>
+      <tr><td>P&amp;L Sankey Diagram</td><td>Revenue &rarr; COGS &rarr; Gross Profit &rarr; OpEx &rarr; Net Income flow</td><td>None</td></tr>
+      <tr><td>Category Breakdown</td><td>Stacked/grouped bar charts by category, month-by-month</td><td>Basic charts</td></tr>
+      <tr><td>Waterfall Chart</td><td>Additive/subtractive flow from revenue to net income</td><td>None</td></tr>
+      <tr><td>Trend Overlay</td><td>Three overlaid lines: Revenue, Expenses, Net Income</td><td>Basic version</td></tr>
+      <tr><td>Bookkeeping Validation</td><td>Detects if Revenue + Expenses &ne; Net Income</td><td>Not proactive</td></tr>
+    </tbody>
+  </table>
+
+  <div class="improve">
+    <div class="improve-title">What We Can Improve</div>
+    <ul>
+      <li>Category-level trend analysis &mdash; which revenue streams growing vs. declining, which expense categories ballooning</li>
+      <li>Budget vs. Actual overlay &mdash; show planned P&amp;L budget alongside actual with variance highlighting (data already synced)</li>
+      <li>Revenue concentration risk &mdash; flag if a single customer or product accounts for &gt;30% of total revenue</li>
+      <li>Expense anomaly detection &mdash; highlight categories that deviated significantly from historical average</li>
+      <li>EBITDA margin trend over time as a chart, not just a single number</li>
+      <li>Service-line profitability &mdash; gross margin per revenue stream to identify which services are actually profitable</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h3>3. Balance Sheet</h3>
+  <p class="desc">Point-in-time financial position with auto-computed ratios and visual accounting equation.</p>
+  <table>
+    <thead><tr><th>Feature</th><th>What Midas Does</th><th>QuickBooks</th></tr></thead>
+    <tbody>
+      <tr><td>6 Computed Ratios</td><td>Current Ratio, Quick Ratio, Debt-to-Equity, Debt Ratio, Equity Multiplier, Working Capital</td><td>Manual calculation</td></tr>
+      <tr><td>3 Performance Metrics</td><td>ROE, ROA, Asset Turnover &mdash; GAAP-compliant period averages</td><td>Not provided</td></tr>
+      <tr><td>Sankey Diagram</td><td>Assets flowing into Liabilities and Equity &mdash; visual accounting equation</td><td>None</td></tr>
+      <tr><td>Auto Classification</td><td>Heuristic detection classifies accounts as Current vs Non-Current even when QB doesn't</td><td>Relies on manual setup</td></tr>
+      <tr><td>Equation Validation</td><td>Automatically verifies Assets = Liabilities + Equity</td><td>Not proactive</td></tr>
+    </tbody>
+  </table>
+
+  <div class="improve">
+    <div class="improve-title">What We Can Improve</div>
+    <ul>
+      <li>Balance sheet trend over time &mdash; month-over-month changes for Assets, Liabilities, Equity instead of just a point-in-time snapshot</li>
+      <li>Working capital trend chart &mdash; visualize Current Assets vs. Current Liabilities trajectory to spot deterioration</li>
+      <li>Asset composition efficiency &mdash; show which assets generate returns and which are dead weight</li>
+      <li>Debt maturity timeline &mdash; when do loans and liabilities come due, visualized on a calendar</li>
+      <li>Comparative balance sheet &mdash; side-by-side any two dates to see exactly what changed</li>
+      <li>Add Altman Z-Score or similar bankruptcy prediction model as an additional health metric</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h3>4. Cash Flow Statement</h3>
+  <p class="desc">Operating, Investing, Financing activities with real-time enrichment and startup-critical metrics.</p>
+  <table>
+    <thead><tr><th>Feature</th><th>What Midas Does</th><th>QuickBooks</th></tr></thead>
+    <tbody>
+      <tr><td>Free Cash Flow</td><td>Operating CF - Capital Expenditures</td><td>Not provided</td></tr>
+      <tr><td>Cash Flow Margin</td><td>Operating CF / Revenue &times; 100</td><td>Not provided</td></tr>
+      <tr><td>Cash Conversion Cycle</td><td>DSO + DIO - DPO (fetches real-time AR/AP/Inventory)</td><td>Not provided</td></tr>
+      <tr><td>DSO / DPO / DIO</td><td>Days Sales/Payable/Inventory Outstanding</td><td>Not provided</td></tr>
+      <tr><td>Burn Rate</td><td>Gross &amp; Net monthly expense / depletion rate</td><td>Not provided</td></tr>
+      <tr><td>Cash Runway</td><td>Months until cash runs out at current burn</td><td>Not provided</td></tr>
+      <tr><td>Coverage Ratio</td><td>Operating CF / Total Debt</td><td>Not provided</td></tr>
+      <tr><td>Waterfall Chart</td><td>Beginning &rarr; Operating &rarr; Investing &rarr; Financing &rarr; Ending</td><td>None</td></tr>
+      <tr><td>Stacked Trend</td><td>Monthly breakdown of all 3 CF categories + total cash line</td><td>None</td></tr>
+    </tbody>
+  </table>
+
+  <div class="improve">
+    <div class="improve-title">What We Can Improve</div>
+    <ul>
+      <li>Cash flow driver attribution &mdash; "Cash decreased $50K: 60% inventory, 25% slower collections, 15% equipment"</li>
+      <li>Working capital optimization recommendations &mdash; "Reducing DSO by 7 days frees $X. Here are your 5 slowest payers."</li>
+      <li>Operating CF breakdown &mdash; drill into customer collections, vendor payments, payroll individually</li>
+      <li>Investing activities trend &mdash; CapEx tracking over time to show investment patterns</li>
+      <li>One-click "forecast this forward" from the current cash flow view to the forecasting page</li>
+      <li>Plaid integration for real-time bank data &mdash; QB sync can be 24 hours stale</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h3>5. Sales &mdash; 4-Tab Analytics</h3>
+  <p class="desc">Overview, Customers, Products, and Outstanding (AR Aging) with 12+ computed metrics and 3-level drill-down.</p>
+  <table>
+    <thead><tr><th>Feature</th><th>What Midas Does</th><th>QuickBooks</th></tr></thead>
+    <tbody>
+      <tr><td>12+ Computed KPIs</td><td>Avg Order Value, Avg Revenue/Customer, Avg Unit Price, Collection Rate %, Market Share per customer &amp; product</td><td>Raw numbers only</td></tr>
+      <tr><td>Collection Rate</td><td>(Total Sales - Outstanding) / Total Sales</td><td>Not provided</td></tr>
+      <tr><td>3-Level Drill-Down</td><td>Customer &rarr; Transactions &rarr; Invoice with PDF view/download</td><td>Less seamless</td></tr>
+      <tr><td>Product Analytics</td><td>Donut chart (top 8), bar chart by type (Service/Inventory/NonInventory)</td><td>Basic reports</td></tr>
+      <tr><td>AR Aging Visual</td><td>Current, 30, 60, 90+ days with overdue % per customer, red badges</td><td>Table-only</td></tr>
+      <tr><td>Live Outstanding Badge</td><td>Tab badge shows count of customers with unpaid invoices</td><td>None</td></tr>
+    </tbody>
+  </table>
+
+  <div class="improve">
+    <div class="improve-title">What We Can Improve</div>
+    <ul>
+      <li>Customer cohort analysis &mdash; group by acquisition period, track revenue retention, identify growing vs. churning cohorts</li>
+      <li>Predictive churn scoring &mdash; score recurring customers' churn risk based on declining frequency and payment changes</li>
+      <li>Customer lifetime value (CLV) &mdash; total + projected future value based on historical patterns</li>
+      <li>Estimates/Quotes tab &mdash; data already synced but not shown. Add win/loss tracking, conversion rate, expiration alerts</li>
+      <li>Revenue growth rate per customer and product &mdash; period-over-period, not just static totals</li>
+      <li>Sales receipts (POS) analysis &mdash; synced but not surfaced. Add cash vs. accrual breakdown</li>
+      <li>Credit memo and refund tracking &mdash; synced but hidden. Add return rate, refund reasons, impact on net revenue</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h3>6. Expenses &mdash; Bills</h3>
+  <p class="desc">Comprehensive AP analysis with 5-bucket aging, status breakdowns, and trend tracking.</p>
+  <table>
+    <thead><tr><th>Feature</th><th>What Midas Does</th><th>QuickBooks</th></tr></thead>
+    <tbody>
+      <tr><td>6 Bill KPIs</td><td>Total Bills, Total Amount, Paid, Unpaid, Overdue, Paid %</td><td>Scattered across screens</td></tr>
+      <tr><td>Visual Aging Strip</td><td>Color-coded stacked bar: Current, 1-30, 31-60, 61-90, 90+ days</td><td>Table-only aging</td></tr>
+      <tr><td>Dual Status Analysis</td><td>Bills by Count AND by Amount (separate views)</td><td>Single view</td></tr>
+      <tr><td>Status Pie Chart</td><td>Paid/Unpaid/Overdue visual breakdown</td><td>Not provided</td></tr>
+      <tr><td>Monthly Trend</td><td>Area chart showing bill amounts over time</td><td>Not in this form</td></tr>
+      <tr><td>Days Until Due</td><td>Computed per bill, shown inline with overdue highlighting</td><td>Not automatic</td></tr>
+    </tbody>
+  </table>
+
+  <div class="improve">
+    <div class="improve-title">What We Can Improve</div>
+    <ul>
+      <li>Purchase order tracking &mdash; PO data synced but not surfaced. Add status dashboard, PO vs. actual spend, pending deliveries</li>
+      <li>Payment scheduling recommendations &mdash; AI suggests optimal timing to maximize cash while avoiding late fees</li>
+      <li>Vendor credit integration &mdash; synced but not reflected. Adjust aging and balances for credits</li>
+      <li>Recurring bill detection &mdash; identify recurring bills and flag when amounts change unexpectedly</li>
+      <li>Bill approval workflow &mdash; simple approve/reject flow for multi-person businesses</li>
+      <li>Consolidate with AP aging &mdash; 75% overlap between bills and AP aging pages. Merge into single view with tabs</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h3>7. Expenses &mdash; Vendors</h3>
+  <p class="desc">Vendor-centric spending analysis with category concentration and transaction breakdowns.</p>
+  <table>
+    <thead><tr><th>Feature</th><th>What Midas Does</th><th>QuickBooks</th></tr></thead>
+    <tbody>
+      <tr><td>6 Vendor KPIs</td><td>Total Expenses, Paid, Balance, Vendor Count, Transactions, Avg/Vendor</td><td>Scattered across QB</td></tr>
+      <tr><td>Category Concentration</td><td>Top category, Top 3 %, stacked bar of top 8 categories</td><td>Not provided</td></tr>
+      <tr><td>Vendor Drill-Down</td><td>Spending, balance, bill/credit breakdown per vendor</td><td>Less interactive</td></tr>
+      <tr><td>Type Distribution</td><td>Pie chart: Bill vs Bill Credit</td><td>Not provided</td></tr>
+      <tr><td>Status Distribution</td><td>Pie chart: Paid/Overdue/Open</td><td>Not provided</td></tr>
+      <tr><td>Avg Spend/Vendor</td><td>Auto-computed</td><td>Not provided</td></tr>
+    </tbody>
+  </table>
+
+  <div class="improve">
+    <div class="improve-title">What We Can Improve</div>
+    <ul>
+      <li>Vendor scorecard &mdash; score on payment compliance, price stability, dependency risk. Flag over-reliance on single vendors</li>
+      <li>Vendor price trend tracking &mdash; show if prices are increasing over time, suggest renegotiation</li>
+      <li>Category-level budget comparison &mdash; spending per category vs. budget targets (data already synced)</li>
+      <li>Vendor credit and refund integration &mdash; both synced but not shown in vendor analytics</li>
+      <li>Merge 7 expense sub-pages into 3-4 focused views &mdash; 50-75% overlap is confusing for users</li>
+      <li>Cash purchase tracking &mdash; immediate cash/check expenses (Purchase entity) synced but only bills highlighted</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h3>8. Cash Flow Forecasting <span class="unique-tag">Entirely Unique to Midas</span></h3>
+  <p class="desc">QuickBooks has absolutely nothing like this. Cash flow forecasting is the #1 requested feature from SMBs.</p>
+  <table class="two-col">
+    <thead><tr><th>Feature</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td>Dual-Horizon Views</td><td>13-week (tactical, weekly granularity) and 6-month (strategic, monthly granularity)</td></tr>
+      <tr><td>3 Scenario Presets</td><td>Conservative (+5% inflow / +15% outflow), Moderate (+15% / +10%), Aggressive (+30% / +5%)</td></tr>
+      <tr><td>4 Custom Sliders</td><td>Growth Rate (-50% to +100%), Inflow Growth, Outflow Growth, Rolling Average Window (30/60/90 days)</td></tr>
+      <tr><td>Multiple Algorithms</td><td>Selectable forecasting algorithms with descriptions and tooltips</td></tr>
+      <tr><td>Confidence Bands</td><td>Visual upper/lower bounds showing forecast uncertainty range</td></tr>
+      <tr><td>Memory Integration</td><td>Planned future events (hires, purchases, contracts) factored into forecast with toggle on/off</td></tr>
+      <tr><td>Memory Event Markers</td><td>X-shaped markers on chart &mdash; green for income events, red for expense events</td></tr>
+      <tr><td>4 Summary Stats</td><td>Ending Cash, Net Change, Lowest Cash Point, Cash Runway (color-coded urgency)</td></tr>
+      <tr><td>Line-Item Table</td><td>Collapsible categories: Beginning Cash &rarr; Subtotals &rarr; Net Change &rarr; Ending Cash per period</td></tr>
+      <tr><td>Today Divider</td><td>Visual separator between actual historical data and forecast projections</td></tr>
+      <tr><td>Multi-Format Export</td><td>PDF (both horizons combined) and CSV</td></tr>
+    </tbody>
+  </table>
+
+  <div class="improve">
+    <div class="improve-title">What We Can Improve</div>
+    <ul>
+      <li>AI "What If" in natural language &mdash; "What happens if I hire 2 engineers at $150K?" auto-creates memory entries and updates forecast</li>
+      <li>Named scenario workspace &mdash; save multiple scenarios, compare side-by-side. Enterprise FP&amp;A charges $30K+ for this</li>
+      <li>Monte Carlo / stress testing &mdash; probability distributions of outcomes instead of single-line forecasts</li>
+      <li>Longer horizons &mdash; 12-month and 24-month views for strategic planning and investor presentations</li>
+      <li>Per-category forecasting &mdash; forecast individual expense/revenue categories, show which drive the most variance</li>
+      <li>Budget overlay &mdash; show forecast vs. QB budget vs. actual in one chart</li>
+      <li>Automatic reforecasting &mdash; re-run forecast when new actuals arrive, notify of material changes</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h3>9. Journal</h3>
+  <p class="desc">General ledger entries with aggregate analytics and balance validation.</p>
+  <table>
+    <thead><tr><th>Feature</th><th>What Midas Does</th><th>QuickBooks</th></tr></thead>
+    <tbody>
+      <tr><td>5 Key Metrics</td><td>Total Entries, Volume, Total Debits, Total Credits, Balance Check</td><td>No aggregate metrics</td></tr>
+      <tr><td>Balance Validation</td><td>Auto-checks Debits = Credits with visual indicator</td><td>Not proactive</td></tr>
+      <tr><td>Type Concentration</td><td>Stacked bar showing transaction type distribution with percentages</td><td>Not provided</td></tr>
+      <tr><td>Top Account Activity</td><td>Top 10 accounts by activity with debit/credit split</td><td>Not provided</td></tr>
+      <tr><td>Virtualized Table</td><td>Smooth scrolling for thousands of entries</td><td>Paginated</td></tr>
+      <tr><td>Entry Detail Panel</td><td>Click any entry for full debit/credit breakdown with memo</td><td>Must navigate away</td></tr>
+    </tbody>
+  </table>
+
+  <div class="improve">
+    <div class="improve-title">What We Can Improve</div>
+    <ul>
+      <li>Anomaly detection &mdash; flag entries unusual in amount, account, or pattern (e.g. rare manual entries to an account)</li>
+      <li>Audit trail view &mdash; what changed between periods, modified/deleted entries, and by whom</li>
+      <li>Recurring entry detection &mdash; group recurring journal entries (monthly accruals, adjustments) for easier review</li>
+      <li>Class/department filtering &mdash; data includes these tags but they aren't exposed as filter dimensions</li>
+      <li>One-click export for accountants in the format they expect for review or tax prep</li>
+      <li>Full-text search across memos, filter by amount range, date range, and entry type simultaneously</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h3>10. AI &amp; Data Layer</h3>
+  <p class="desc">The intelligence engine that powers every page &mdash; 40+ entity types, 33+ KPIs, 6 AI query types, and a persistent memory system.</p>
+
+  <h4>33+ Auto-Computed KPIs Across 6 Categories</h4>
+  <table class="two-col">
+    <thead><tr><th>Category</th><th>Metrics</th></tr></thead>
+    <tbody>
+      <tr><td>Profitability (8)</td><td>Gross/Net/Operating Margin, EBITDA, ROA, ROE, Gross Profit, Operating Income</td></tr>
+      <tr><td>Liquidity (6)</td><td>Current Ratio, Quick Ratio, Cash Ratio, Working Capital, Cash Balance, D/E</td></tr>
+      <tr><td>Efficiency (7)</td><td>DSO, DPO, Inventory Turnover, Asset Turnover, AR/AP Turnover, Cash Conversion Cycle</td></tr>
+      <tr><td>Cash Flow (5)</td><td>Operating CF, Free CF, Burn Rate, Runway, CF Margin</td></tr>
+      <tr><td>Leverage (3)</td><td>Debt Ratio, Interest Coverage, Equity Ratio</td></tr>
+      <tr><td>Growth (4)</td><td>Revenue Growth, Expense Growth, Profit Growth, Customer Growth</td></tr>
+    </tbody>
+  </table>
+
+  <h4>AI Query System &mdash; 6 Query Types</h4>
+  <table class="two-col">
+    <thead><tr><th>Type</th><th>What It Does</th></tr></thead>
+    <tbody>
+      <tr><td>Report</td><td>Financial reports with KPIs &amp; visualizations</td></tr>
+      <tr><td>Analyze</td><td>Trend, anomaly, forecast, breakdown, performance analysis</td></tr>
+      <tr><td>Compare</td><td>Period-over-period, budget vs. actual, benchmarking</td></tr>
+      <tr><td>Entity</td><td>Customer/Vendor/Invoice/Bill lookups with filtering</td></tr>
+      <tr><td>Metric</td><td>Single KPI calculation with historical trend</td></tr>
+      <tr><td>Search</td><td>Natural language search across all financial data</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Memory System</h4>
+  <div class="highlight-box">
+    <p><strong>Beyond the books:</strong> Stores business context that doesn't exist in accounting records &mdash; planned hires, upcoming purchases, equipment investments, contract renewals. These future events directly impact cash flow forecasts, giving users a forward-looking view that no competitor offers.</p>
+  </div>
+
+  <div class="improve">
+    <div class="improve-title">What We Can Improve</div>
+    <ul>
+      <li>Pass richer data to AI &mdash; line-item breakdowns and cross-category correlations are available but unused. Highest-ROI AI improvement</li>
+      <li>Expand pattern matching &mdash; only 35 exact patterns today. Adding 50+ for entity filters, sorting, and specific metrics would improve response quality</li>
+      <li>Granularity detection &mdash; AI doesn't detect "by month" vs. "by quarter", often fetches wrong detail level</li>
+      <li>Scheduled AI insights &mdash; generate daily/weekly CFO brief automatically instead of waiting for users to ask</li>
+      <li>Cross-report correlation &mdash; connect P&amp;L, Cash Flow, and AR data to explain relationships (e.g. "revenue grew but collections slowed")</li>
+      <li>Proactive anomaly alerting &mdash; flag unusual patterns rather than waiting for users to notice them</li>
+      <li>Better comparative analysis &mdash; "compare" query type exists but is underutilized. Enable automatic period-over-period with variance explanations</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 2: MIDAS vs QB -->
+  <h2>Section 2: Midas vs QuickBooks</h2>
+  <p class="desc">A comprehensive comparison showing what Midas provides that QuickBooks doesn't.</p>
+
+  <table class="comparison-table">
+    <thead><tr><th>Capability</th><th>Midas</th><th>QuickBooks</th></tr></thead>
+    <tbody>
+      <tr><td>Unified Dashboard</td><td>All 3 financial statements + KPIs on one screen</td><td>Separate reports, must navigate between them</td></tr>
+      <tr><td>Financial Health Score</td><td>0-100 weighted score with radar chart</td><td>None</td></tr>
+      <tr><td>Computed Ratios</td><td>33+ auto-calculated (margins, liquidity, efficiency, leverage)</td><td>None &mdash; manual calculation required</td></tr>
+      <tr><td>Sankey Diagrams</td><td>Balance Sheet, P&amp;L flow visualization</td><td>None</td></tr>
+      <tr><td>Waterfall Charts</td><td>Revenue-to-profit and cash flow decomposition</td><td>None</td></tr>
+      <tr><td>Burn Rate &amp; Runway</td><td>Auto-calculated with urgency color coding</td><td>None</td></tr>
+      <tr><td>Cash Flow Forecasting</td><td>Dual-horizon, scenario modeling, memory integration, confidence bands</td><td>Basic "Cash Flow Planner"</td></tr>
+      <tr><td>Market Share Analysis</td><td>Per-customer and per-product % of total</td><td>None</td></tr>
+      <tr><td>Collection Rate</td><td>Auto-computed with visual indicator</td><td>None</td></tr>
+      <tr><td>AR Aging Visualization</td><td>Color-coded strips, overdue badges, drill-down</td><td>Table-only aging reports</td></tr>
+      <tr><td>Category Concentration</td><td>Top 3% of spending, stacked bars</td><td>None</td></tr>
+      <tr><td>Bookkeeping Validation</td><td>Proactive alerts for reconciliation errors</td><td>Not proactive</td></tr>
+      <tr><td>Data Quality Monitoring</td><td>Warns of incomplete syncs, partial data</td><td>None</td></tr>
+      <tr><td>Educational Features</td><td>Learn dialogs, formula tooltips, industry benchmarks</td><td>None</td></tr>
+      <tr><td>AI Analysis</td><td>Proactive LLM-generated insights &amp; recommendations</td><td>Intuit Assist: reactive Q&amp;A only</td></tr>
+      <tr><td>Memory System</td><td>Business context beyond accounting, impacts forecasts</td><td>None</td></tr>
+      <tr><td>Multi-Format Export</td><td>PDF, CSV, with both forecast horizons</td><td>Standard export only</td></tr>
+      <tr><td>Custom Targets</td><td>User-set thresholds with industry benchmarks</td><td>None</td></tr>
+      <tr><td>Theme Support</td><td>Full light/dark mode, responsive design</td><td>Light mode only</td></tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 3: COMPETITORS -->
+  <h2>Section 3: Midas vs Other Competitors</h2>
+
+  <h3>vs. Intuit Assist (QB Built-in AI) <span class="threat">Direct Threat</span></h3>
+  <table class="comparison-table">
+    <thead><tr><th></th><th>Midas</th><th>Intuit Assist</th></tr></thead>
+    <tbody>
+      <tr><td>Approach</td><td>Full analytics platform with 33+ metrics, visualizations, forecasting</td><td>AI chatbot layer on existing QB UI</td></tr>
+      <tr><td>Forecasting</td><td>Dual-horizon, scenarios, memory events, confidence bands, algorithms</td><td>Basic cash flow projections</td></tr>
+      <tr><td>Proactive Insights</td><td>Health scoring, bookkeeping validation, data quality alerts</td><td>Smart reminders, expense categorization</td></tr>
+      <tr><td>Visualizations</td><td>Sankey, waterfall, radar, trend overlays</td><td>Standard QB charts</td></tr>
+      <tr><td>Memory System</td><td>Future business events impact forecasts</td><td>None</td></tr>
+    </tbody>
+  </table>
+
+  <h3>vs. Zeni (AI CFO for Startups) <span class="threat">High Threat</span></h3>
+  <table class="comparison-table">
+    <thead><tr><th></th><th>Midas</th><th>Zeni</th></tr></thead>
+    <tbody>
+      <tr><td>Model</td><td>Add-on to existing QB (no migration)</td><td>Full-service replacement ($549-$999+/mo)</td></tr>
+      <tr><td>Data Source</td><td>Uses existing QB data</td><td>Requires platform switch</td></tr>
+      <tr><td>Forecasting</td><td>Algorithmic with scenarios and memory</td><td>Dashboard-based projections</td></tr>
+      <tr><td>User Control</td><td>Full customization of metrics and targets</td><td>Less customization</td></tr>
+      <tr><td>Risk</td><td>Low &mdash; augments existing workflow</td><td>High &mdash; requires migration</td></tr>
+    </tbody>
+  </table>
+
+  <h3>vs. Puzzle (Modern Accounting for Startups) <span class="threat">High Threat</span></h3>
+  <table class="comparison-table">
+    <thead><tr><th></th><th>Midas</th><th>Puzzle</th></tr></thead>
+    <tbody>
+      <tr><td>Model</td><td>Add-on to QB (keep existing setup)</td><td>QB alternative (must switch)</td></tr>
+      <tr><td>Forecasting</td><td>Multi-algorithm with scenario modeling</td><td>Basic projections</td></tr>
+      <tr><td>Memory System</td><td>Future events impact forecasts</td><td>None</td></tr>
+      <tr><td>Migration Risk</td><td>None</td><td>Must migrate away from QB</td></tr>
+      <tr><td>Visualizations</td><td>Sankey, waterfall, radar, trend charts</td><td>Modern but less variety</td></tr>
+    </tbody>
+  </table>
+
+  <h3>vs. Enterprise FP&amp;A (Cube, Anaplan, Planful) <span class="threat">Medium Threat</span></h3>
+  <table class="comparison-table">
+    <thead><tr><th></th><th>Midas</th><th>Enterprise FP&amp;A</th></tr></thead>
+    <tbody>
+      <tr><td>Target</td><td>SMBs and startups using QuickBooks</td><td>Mid-market to enterprise</td></tr>
+      <tr><td>Price</td><td>Add-on pricing</td><td>$30K-$200K+/year</td></tr>
+      <tr><td>Setup Time</td><td>Connect QB in minutes</td><td>Months of implementation</td></tr>
+      <tr><td>Complexity</td><td>Designed for non-finance users with educational features</td><td>Requires FP&amp;A expertise</td></tr>
+    </tbody>
+  </table>
+
+  <h3>vs. Accounting Automation (Trullion, Numeric, Vic.ai) <span class="threat">Complementary</span></h3>
+  <table class="comparison-table">
+    <thead><tr><th></th><th>Midas</th><th>Automation Tools</th></tr></thead>
+    <tbody>
+      <tr><td>Focus</td><td>Analytics, insights, and decision-making</td><td>Task automation (AP, reconciliation)</td></tr>
+      <tr><td>Interaction</td><td>Conversational AI + visual dashboards</td><td>Process automation</td></tr>
+      <tr><td>Forecasting</td><td>Full scenario-based forecasting</td><td>Generally none</td></tr>
+      <tr><td>Complementary?</td><td>Yes &mdash; Midas analyzes, they automate</td><td>Yes &mdash; could be used together</td></tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 4: FUTURE ROADMAP -->
+  <h2>Section 4: Future Roadmap</h2>
+  <p class="desc">Midas is built on a data and AI foundation that enables much more than what exists today. Below is what's next &mdash; organized by category and priority.</p>
+
+  <h3>4.1 Untapped Data: QB Entities We Sync But Don't Yet Surface</h3>
+  <p class="desc">Midas syncs 37+ entity types from QuickBooks. Only a fraction are surfaced in the UI. These represent immediate opportunities using data we already have.</p>
+  <table class="two-col">
+    <thead><tr><th>Entity</th><th>Opportunity</th></tr></thead>
+    <tbody>
+      <tr><td>Budgets</td><td>Budget vs. Actual variance analysis &mdash; the #1 CFO-requested feature. Planned vs. actual by account with % variances, trend analysis, and AI commentary.</td></tr>
+      <tr><td>Purchase Orders</td><td>PO tracking page &mdash; status dashboard, PO vs. actual spend, vendor PO history, pending deliveries.</td></tr>
+      <tr><td>Estimates / Quotes</td><td>Estimate status tracking (Pending/Accepted/Rejected), estimate-to-invoice conversion rate, win/loss analysis.</td></tr>
+      <tr><td>Employees</td><td>Employee directory and cost page &mdash; headcount, hire/release dates, payroll as % of revenue, cost per employee.</td></tr>
+      <tr><td>Time Activities</td><td>Time tracking &mdash; billable vs. non-billable hours, utilization rates, hours by project/customer, labor cost analysis.</td></tr>
+      <tr><td>Classes &amp; Departments</td><td>Multi-dimensional P&amp;L by class/location/department. A component already exists in the codebase &mdash; just needs a route.</td></tr>
+      <tr><td>Projects</td><td>Project performance dashboard &mdash; profitability, budget utilization, hours per project. Component already built.</td></tr>
+      <tr><td>Sales Receipts</td><td>Cash sales analytics &mdash; POS tracking, cash vs. accrual comparison.</td></tr>
+      <tr><td>Credit Memos &amp; Vendor Credits</td><td>Return/credit tracking &mdash; AR/AP aging adjusted for credits, return reason analysis.</td></tr>
+      <tr><td>Tax Codes &amp; Rates</td><td>Tax compliance page &mdash; rates by jurisdiction, sales tax collected vs. remitted, estimated liability.</td></tr>
+      <tr><td>Transfers &amp; Deposits</td><td>Cash management &mdash; bank transfer history, deposit reconciliation, undeposited funds.</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h3>4.2 AI &amp; Intelligence Improvements</h3>
+
+  <h4>Near-Term</h4>
+  <table>
+    <thead><tr><th>Feature</th><th>What It Does</th><th>Why It Matters</th></tr></thead>
+    <tbody>
+      <tr><td>Richer AI Context</td><td>Pass line-item category breakdowns to the AI instead of just totals (data already available)</td><td>Category-level insights instead of generic commentary</td></tr>
+      <tr><td>Anomaly Detection</td><td>Flag unusual transactions &mdash; duplicate payments, abnormal vendor billing, sudden spikes</td><td>Catches errors and fraud that manual review misses</td></tr>
+      <tr><td>Weekly Digest</td><td>AI-generated summary via email or Slack: key metrics, risks, opportunities, actions</td><td>Proactive, not reactive &mdash; Midas reaches out first</td></tr>
+      <tr><td>Smart Categorization</td><td>ML-based auto-categorization suggestions for uncategorized transactions</td><td>Table-stakes for modern accounting tools</td></tr>
+      <tr><td>Bookkeeping Error Detection</td><td>Pattern-based detection: missing recurring entries, unusual balances, stale unreconciled items</td><td>Moves from equation checks to intelligent auditing</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Medium-Term</h4>
+  <table>
+    <thead><tr><th>Feature</th><th>What It Does</th><th>Why It Matters</th></tr></thead>
+    <tbody>
+      <tr><td>AI "What If" Scenarios</td><td>"What happens to my runway if I hire 2 engineers at $150K?" &mdash; auto-creates memory entries, shows updated forecast</td><td>Conversational scenario planning connecting memory to forecasting</td></tr>
+      <tr><td>Predictive Cash Alerts</td><td>Use historical patterns to predict cash crunches before they happen</td><td>Goes beyond threshold alerts (reactive) to predictive (proactive)</td></tr>
+      <tr><td>Industry Playbooks</td><td>Curated guidance per revenue model with specific levers based on expense structure</td><td>Transforms generic advice into actionable coaching</td></tr>
+      <tr><td>Automated Financial Narrative</td><td>Full CFO-quality monthly report: executive summary, metric movements, risk areas, actions. Board-ready PDF.</td><td>Saves hours of manual reporting for investor/board comms</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h3>4.3 New Pages &amp; Modules</h3>
+  <table>
+    <thead><tr><th>Page</th><th>Priority</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Budget vs. Actual</td><td>High</td><td>Variance analysis comparing QB budgets to actual by account/department. QB's built-in version is minimal.</td></tr>
+      <tr><td>Tax Preparation Summary</td><td>High</td><td>Estimated quarterly liability, deductible expenses by category, 1099 payments, sales tax collected vs. remitted.</td></tr>
+      <tr><td>AR Intelligence</td><td>High</td><td>Customer payment behavior scoring, predicted collection dates, automated aging waterfall, write-off recommendations.</td></tr>
+      <tr><td>Custom Dashboard Builder</td><td>Medium</td><td>Drag-and-drop KPI cards, charts, metrics. Component library exists &mdash; needs a layout engine.</td></tr>
+      <tr><td>Vendor Scorecard</td><td>Medium</td><td>Score vendors on payment compliance, price stability, dependency risk. Suggest renegotiation opportunities.</td></tr>
+      <tr><td>Financial Calendar</td><td>Medium</td><td>Calendar combining bill due dates, expected payments, memory events, recurring patterns. 90-day visual timeline.</td></tr>
+      <tr><td>Period Comparison Tool</td><td>Medium</td><td>Side-by-side any two periods with variance highlighting, waterfall charts, AI narrative.</td></tr>
+      <tr><td>Revenue Recognition</td><td>Low</td><td>For SaaS/service: deferred revenue, MRR/ARR trends, churn rate, contract recognition.</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h3>4.4 Integration Opportunities</h3>
+  <table>
+    <thead><tr><th>Integration</th><th>Priority</th><th>Value Add</th></tr></thead>
+    <tbody>
+      <tr><td>Slack</td><td>High</td><td>Phase 1: alerts &amp; summaries. Phase 2: /ask-midas command. Phase 3: rich link previews. Spec already exists.</td></tr>
+      <tr><td>Plaid</td><td>High</td><td>Real-time bank data independent of QB sync. Solves the "QB data is 24 hours stale" problem.</td></tr>
+      <tr><td>Stripe</td><td>High</td><td>Real-time payments, MRR/ARR tracking, subscription analytics, payout reconciliation.</td></tr>
+      <tr><td>Payroll (Gusto/ADP)</td><td>Medium</td><td>Payroll is the largest SMB expense but QB data is limited. Employee cost analytics, department spending.</td></tr>
+      <tr><td>Bill.com / Melio</td><td>Medium</td><td>AP automation data &mdash; payment status, scheduled payments. Cross-reference with Midas aging.</td></tr>
+      <tr><td>Tax (TaxJar/Avalara)</td><td>Medium</td><td>Sales tax compliance, multi-state tracking, estimated liability. Critical for e-commerce.</td></tr>
+      <tr><td>Google Sheets / Excel</td><td>Medium</td><td>Live-syncing data to spreadsheets &mdash; a gateway for QB power users who still live in Excel.</td></tr>
+      <tr><td>CRM (HubSpot/Salesforce)</td><td>Low</td><td>Match pipeline data against actual revenue. Customer lifetime value combining CRM + QB data.</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h3>4.5 Platform &amp; UX Improvements</h3>
+  <table class="two-col">
+    <thead><tr><th>Improvement</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Performance Caching (Critical)</td><td>Server-side Redis cache for QB API calls (10-30s per report currently). Could reduce repeat views to &lt;1 second &mdash; 99%+ improvement.</td></tr>
+      <tr><td>Scheduled Reports (High)</td><td>"Send me a P&amp;L every Monday at 9am." Notification infra and PDF generation exist &mdash; needs scheduling UI.</td></tr>
+      <tr><td>Custom Alert Rules (High)</td><td>Let users create rules: "Alert when gross margin drops below 55%." Threshold system exists but is hardcoded.</td></tr>
+      <tr><td>Mobile PWA (High)</td><td>Push notifications, quick KPI dashboard, AI chat on-the-go. Notification system already supports push.</td></tr>
+      <tr><td>Multi-Company Dashboard (Medium)</td><td>Unified view for managing multiple QB companies. Side-by-side KPIs, consolidated totals.</td></tr>
+      <tr><td>Collaboration &amp; Sharing (Medium)</td><td>Share reports via link, annotate for team/accountant/investors. Role-based access.</td></tr>
+      <tr><td>Keyboard Shortcuts (Medium)</td><td>Cmd+K quick-jump, rapid navigation. Power-user feel as described in the product vision.</td></tr>
+      <tr><td>Expense Module Consolidation (Medium)</td><td>Current 7 expense pages have 50-75% overlap. Consolidate to 3-4 focused pages.</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h3>4.6 Advanced Analytics</h3>
+  <table class="two-col">
+    <thead><tr><th>Feature</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Industry Benchmarking</td><td>Compare metrics against industry medians by revenue model. Makes the Health Score actionable, not just interesting.</td></tr>
+      <tr><td>Customer Cohort Analysis</td><td>Group customers by acquisition period. Track revenue retention. Show growing/shrinking/churning cohorts.</td></tr>
+      <tr><td>Working Capital Optimization</td><td>Combine DSO/DPO/DIO into recommendations: "Reducing DSO by 7 days frees $X. Here are your 5 slowest payers."</td></tr>
+      <tr><td>Scenario Planning Workspace</td><td>Build named scenarios ("Hire 3", "Open office", "Lose client"), compare side-by-side. Enterprise FP&amp;A charges $30K+ for this.</td></tr>
+      <tr><td>Cash Flow Driver Attribution</td><td>"Cash decreased $50K: 60% inventory purchases, 25% slower collections, 15% equipment lease."</td></tr>
+      <tr><td>Profitability by Customer/Product</td><td>Cross-reference revenue with allocated costs. True profitability, not just revenue.</td></tr>
+      <tr><td>Predictive Churn Scoring</td><td>Score recurring customers' churn risk based on payment patterns, order frequency, revenue trends.</td></tr>
+      <tr><td>Financial Stress Testing</td><td>Monte Carlo simulation: "What if revenue drops 20%? If your biggest customer leaves?"</td></tr>
+    </tbody>
+  </table>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <h2>The Midas Pitch</h2>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <h4>Intelligence Layer</h4>
+        <p>33+ auto-computed financial metrics, health scoring, and proactive validation that QuickBooks simply doesn't provide &mdash; no spreadsheets or manual calculation needed.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <h4>Predictive Forecasting</h4>
+        <p>The only QB add-on with dual-horizon scenario modeling, memory-integrated forecasting, confidence bands, and multiple algorithms. QB has nothing close.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <h4>Decision-Ready Insights</h4>
+        <p>Sankey diagrams, waterfall charts, AI analysis, and educational features that help owners understand not just what their numbers are, but what they mean.</p>
+      </div>
+    </div>
+
+    <div class="bottom-line">
+      <p><strong>QuickBooks shows you what happened.</strong><br>Midas tells you what it means, what's coming, and what to do about it.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

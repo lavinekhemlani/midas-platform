@@ -1,0 +1,654 @@
+/* ===============================================
+   REUSABLE COMPONENTS
+   =============================================== */
+
+.shell-base {
+  position: absolute;
+  inset: 0;
+  background-color: var(--theme-bg);
+  transition: background-color 0.3s ease-out;
+}
+
+.theme-text-primary {
+  color: var(--theme-text-primary);
+  transition: color 0.3s ease-out;
+}
+
+/* Emphasized text within secondary text - bolder in light mode for better contrast */
+.theme-text-emphasis {
+  color: var(--theme-text-primary);
+  transition:
+    color 0.3s ease-out,
+    font-weight 0.3s ease-out;
+}
+
+html[data-theme='light'] .theme-text-emphasis {
+  font-weight: 500;
+}
+
+.theme-text-secondary {
+  color: var(--theme-text-secondary);
+  transition: color 0.3s ease-out;
+}
+
+/* Midas brand text gradient - theme aware */
+.midas-text-gradient {
+  background: linear-gradient(to right, #f59e0b, #d97706);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+html.theme-light .midas-text-gradient {
+  background: linear-gradient(to right, #cf6900, #b55d00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Google sign-in button - theme aware */
+.btn-google-signin {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--font-dm-sans);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-google-signin:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+html.theme-light .btn-google-signin {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+html.theme-light .btn-google-signin:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.theme-border {
+  border: 1px solid var(--theme-card-border);
+  transition: border-color 0.3s ease-out;
+}
+
+.theme-card-bg {
+  background: var(--theme-card-bg);
+  transition: background-color 0.3s ease-out;
+}
+
+.glass-component,
+.glass-luxury,
+.premium-badge,
+.schedule-demo-btn,
+.schedule-demo-btn-landing {
+  backdrop-filter: blur(10px);
+  transition:
+    background-color 0.3s ease-out,
+    border-color 0.3s ease-out,
+    color 0.3s ease-out;
+}
+
+.glass-luxury-card {
+  /* Disable backdrop-filter to prevent visual bleeding from other elements */
+  /* backdrop-filter: blur(10px); */
+  transition:
+    background-color 0.3s ease-out,
+    border-color 0.3s ease-out,
+    color 0.3s ease-out;
+}
+
+.glass-component {
+  background: var(--theme-glass-bg);
+  border: 1px solid var(--theme-glass-border);
+  border-radius: 12px;
+}
+
+.glass-luxury {
+  background: var(--theme-glass-bg);
+  border: 1px solid var(--theme-glass-border);
+  border-radius: 12px;
+}
+
+.glass-luxury-card {
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-card-border);
+  border-radius: 16px;
+  color: var(--theme-text-primary);
+  /* Prevent creating new stacking context during tooltip hover */
+  isolation: auto;
+}
+
+/* AI Analysis item hover — color-coded by section */
+.analysis-item {
+  position: relative;
+  border-left: 2px solid transparent;
+}
+
+/* Strategic — blue */
+.analysis-item--strategic:hover {
+  background: rgba(96, 165, 250, 0.06);
+  border-left-color: rgba(96, 165, 250, 0.4);
+}
+
+html.theme-light .analysis-item--strategic:hover {
+  background: rgba(59, 130, 246, 0.06);
+  border-left-color: rgba(59, 130, 246, 0.5);
+}
+
+/* Forward-looking — purple */
+.analysis-item--forward:hover {
+  background: rgba(191, 146, 233, 0.06);
+  border-left-color: rgba(191, 146, 233, 0.4);
+}
+
+html.theme-light .analysis-item--forward:hover {
+  background: rgba(139, 92, 246, 0.06);
+  border-left-color: rgba(139, 92, 246, 0.5);
+}
+
+/* Actions — blue */
+.analysis-item--actions-blue:hover {
+  background: rgba(96, 165, 250, 0.06);
+  border-left-color: rgba(96, 165, 250, 0.4);
+}
+
+html.theme-light .analysis-item--actions-blue:hover {
+  background: rgba(59, 130, 246, 0.06);
+  border-left-color: rgba(59, 130, 246, 0.5);
+}
+
+/* Remove backdrop-filter stacking context when tooltip is shown */
+.glass-luxury-card:has([data-state='open']),
+.glass-luxury-card[data-tooltip-open='true'] {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Alternative: Use isolation to contain stacking without creating new context */
+.kpi-tooltip-container {
+  isolation: isolate;
+  position: relative;
+}
+
+/* Enhanced learning modal styles - Solid opaque design */
+.learn-modal-content {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Solid card styling for learn modal */
+.learn-modal-card {
+  background: rgb(30, 30, 30);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+/* Light theme adjustment */
+html.theme-light .learn-modal-card {
+  background: rgb(255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme adjustment */
+html.theme-dark .learn-modal-card {
+  background: rgb(26, 26, 26);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Darkmatter theme adjustment */
+html.theme-darkmatter .learn-modal-card {
+  background: rgb(22, 22, 24);
+  border: 1px solid rgba(60, 60, 60, 0.5);
+}
+
+/* Learn modal dialog - solid opaque background */
+.learn-modal-dialog {
+  background: rgb(20, 20, 20);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--theme-text-primary);
+  border-radius: 12px;
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.6),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* Light theme dialog */
+html.theme-light .learn-modal-dialog {
+  background: rgb(252, 250, 247);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark theme dialog */
+html.theme-dark .learn-modal-dialog {
+  background: rgb(18, 18, 18);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Darkmatter theme dialog */
+html.theme-darkmatter .learn-modal-dialog {
+  background: rgb(15, 15, 17);
+  border: 1px solid rgba(60, 60, 60, 0.4);
+}
+
+/* Settings modal styling - matches learn modal */
+.settings-modal-content {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Light theme adjustment for settings modal */
+html.theme-light .settings-modal-content {
+  background: rgb(255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Minimal theme adjustment for settings modal */
+html.theme-dark .settings-modal-content {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Metric selector dropdown - solid background */
+.metric-selector-dropdown {
+  background: rgb(23, 23, 23);
+}
+
+html.theme-light .metric-selector-dropdown {
+  background: rgb(255, 255, 255);
+}
+
+html.theme-dark .metric-selector-dropdown {
+  background: rgb(18, 18, 18);
+}
+
+.learn-modal-content .card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.learn-modal-content .card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.premium-badge {
+  background: var(--theme-premium-bg);
+  border: 1px solid var(--theme-premium-border);
+}
+
+.glass-footer {
+  background: var(--theme-footer-bg);
+  border-top: 1px solid var(--theme-footer-border);
+  backdrop-filter: blur(10px);
+  transition:
+    background-color 0.3s ease-out,
+    border-color 0.3s ease-out;
+}
+
+/* Header Styles */
+.header-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: transform var(--hover-transition);
+  position: relative;
+  z-index: 10;
+}
+
+.header-fade-overlay {
+  background-color: var(--theme-bg);
+  mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+  transition: background-color var(--theme-transition);
+}
+
+/* Dashboard Header */
+.dashboard-sidebar .header-logo-container {
+  padding: unset;
+}
+
+/* ===============================================
+   COLLAPSED SIDEBAR NAVIGATION
+   =============================================== */
+
+/* Collapsed sidebar sections */
+.dashboard-sidebar.w-\[80px\] .dashboard-sidebar-item {
+  position: relative;
+}
+
+/* Ensure hover tooltips work properly in collapsed state */
+.dashboard-sidebar.w-\[80px\] [title] {
+  cursor: pointer;
+}
+
+/* Collapsed section indicator - only for parent items with children */
+.dashboard-sidebar.w-\[80px\] button > svg:last-of-type:not(:first-child) {
+  opacity: 0.7;
+}
+
+/* Collapsed submenu positioning */
+.dashboard-sidebar.w-\[80px\] .absolute.left-full {
+  animation: slideInLeft 200ms ease-out;
+}
+
+@keyframes topbar-shimmer {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    max-height: 500px;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    max-height: 500px;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 250ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Smooth height transition for expanded sections */
+.dashboard-sidebar.w-\[240px\] .animate-slideDown {
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth transitions for collapsed child items */
+.dashboard-sidebar:not(.w-\[280px\]) .animate-slideDown {
+  margin-top: -0.25rem;
+}
+
+/* Smooth width transition for sections */
+.dashboard-sidebar {
+  transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth transitions for all sidebar items */
+.dashboard-sidebar-item {
+  transition: all 200ms ease-out;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-10px, -50%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
+.animate-tooltipFadeIn {
+  animation: tooltipFadeIn 50ms ease-out;
+}
+
+/* Visual indicator for child items - minimal L-shape (collapsed sidebar) */
+.dashboard-sidebar:not(.w-\[280px\]) .dashboard-sidebar-child::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 8px;
+  border-left: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  opacity: 0.3;
+  transition: opacity 0.2s ease;
+  margin-top: -4px;
+}
+
+/* Hover effect for child items (collapsed) */
+.dashboard-sidebar:not(.w-\[280px\]) .dashboard-sidebar-child:hover::before {
+  opacity: 0.6;
+}
+
+/* Ensure child icons are always visible and properly sized */
+.dashboard-sidebar-child svg {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Fix flexbox alignment for wrapper divs */
+.dashboard-sidebar-child > div:first-child {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Prevent sidebar expansion on general click */
+.dashboard-sidebar {
+  user-select: none;
+}
+
+/* Only allow chevron button to trigger expansion */
+.dashboard-sidebar button[aria-label] {
+  pointer-events: auto;
+}
+
+/* Remove background for all active items in both states */
+.dashboard-sidebar .dashboard-sidebar-item.active {
+  background: none;
+}
+
+/* L-shape for expanded sidebar child items - matching collapsed positioning */
+.dashboard-sidebar.w-\[240px\] .dashboard-sidebar-child::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 8px;
+  border-left: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  opacity: 0.3;
+  transition: opacity 0.2s ease;
+  margin-top: -4px;
+}
+
+.dashboard-sidebar.w-\[240px\] .dashboard-sidebar-child:hover::before {
+  opacity: 0.6;
+}
+
+/* Keep icon highlighting for active state */
+.dashboard-sidebar.w-\[80px\] .dashboard-sidebar-item.active > svg,
+.dashboard-sidebar.w-\[96px\] .dashboard-sidebar-item.active > svg {
+  color: #f59e0b !important;
+}
+
+/* Styles for expanded collapsed sidebar (96px) */
+.dashboard-sidebar.w-\[96px\] .dashboard-sidebar-item {
+  position: relative;
+}
+
+.dashboard-sidebar.w-\[96px\] [title] {
+  cursor: pointer;
+}
+
+/* Chevron positioning for expanded collapsed state - only for parent items */
+.dashboard-sidebar.w-\[96px\] button > svg:last-of-type:not(:first-child) {
+  opacity: 0.7;
+}
+
+/* Improve collapsed submenu styling */
+.dashboard-sidebar .glass-luxury-card {
+  min-width: 220px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Ensure proper z-index stacking */
+.dashboard-sidebar .relative > .absolute {
+  z-index: 60;
+}
+
+/* Button Styles */
+.btn-get-started {
+  background: linear-gradient(to right, #f59e0b, #d97706);
+  color: white;
+  font-family: var(--font-dm-sans);
+  font-weight: 600;
+  transition:
+    box-shadow var(--hover-transition),
+    transform var(--hover-transition);
+}
+
+.btn-get-started:hover {
+  box-shadow: 0 25px 50px -12px rgba(245, 158, 11, 0.25);
+  transform: scale(1.05);
+}
+
+/* Light mode button styling */
+html.theme-light .btn-get-started {
+  background: linear-gradient(to right, #cf6900, #b55d00);
+}
+
+html.theme-light .btn-get-started:hover {
+  box-shadow: 0 25px 50px -12px rgba(207, 105, 0, 0.25);
+}
+
+.schedule-demo-btn,
+.schedule-demo-btn-landing {
+  background: var(--theme-button-bg);
+  color: var(--theme-button-text);
+  border: 1px solid var(--theme-button-border);
+}
+
+.btn-secondary {
+  background: var(--theme-glass-bg);
+  color: var(--theme-text-secondary);
+  border: 1px solid var(--theme-glass-border);
+  font-weight: 500;
+  transition: all 0.3s ease-out;
+}
+
+.btn-secondary:not(:disabled):hover {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: var(--theme-text-primary);
+}
+
+.btn-primary {
+  background: linear-gradient(to right, #3b82f6, #1d4ed8);
+  color: white;
+  font-weight: 600;
+  border: none;
+  transition: all 0.3s ease-out;
+}
+
+button.bg-background {
+  color: var(--theme-button-bg);
+}
+
+/* Hover & Interaction Effects */
+.hover-scale {
+  transition:
+    transform var(--hover-transition),
+    box-shadow var(--hover-transition);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.group:hover .group-hover-translate {
+  transform: translateX(0.125rem);
+  transition: transform var(--hover-transition);
+}
+
+.hover-shadow-amber:hover {
+  box-shadow: 0 25px 50px -12px rgba(245, 158, 11, 0.25);
+}
+
+/* ===============================================
+   NAV CONTENT FADE OVERLAY
+   z-index stacking: content (z-10) < overlay (z-35) < light rays (z-38) < nav (z-40)
+   This creates the effect where content fades but light rays show through
+   =============================================== */
+
+/* Fade overlay - covers content, but light rays render above it */
+.nav-content-fade-overlay {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 150px;
+  z-index: 35;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+  background: linear-gradient(
+    to bottom,
+    var(--theme-bg) 0%,
+    var(--theme-bg) 30%,
+    rgba(var(--theme-bg-rgb), 0.85) 50%,
+    rgba(var(--theme-bg-rgb), 0.5) 70%,
+    transparent 100%
+  );
+}
+
+/* When nav is hovered after scrolling, show the fade overlay */
+body.nav-content-mask-active .nav-content-fade-overlay {
+  opacity: 1;
+}
+
+/* POSITIONING */
+.left-10 {
+  left: 10%;
+}

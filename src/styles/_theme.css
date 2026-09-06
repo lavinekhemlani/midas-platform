@@ -1,0 +1,563 @@
+/* ===============================================
+   CORE THEME SYSTEM
+   =============================================== */
+
+:root {
+  /* Transitions */
+  --theme-transition: 0.4s ease-in-out;
+  --hover-transition: 150ms ease-in-out;
+  --fade-in-duration: 1.2s;
+  --slide-in-duration: 1s;
+  /* Glass blur intensity (used by components that support blur) */
+  --theme-glass-blur: 14px;
+
+  /* Shimmer Animation Colors - muted gold */
+  --shimmer-base-color: 180, 140, 60; /* Muted gold RGB */
+  --shimmer-highlight-color: 200, 165, 90; /* Lighter muted gold */
+
+  /* Accent color - muted neutral tone */
+  --accent-color: #8a8a8a;
+  --accent-color-rgb: 138, 138, 138;
+
+  /* Custom blue accent for reports (dark mode default) */
+  --theme-blue: #66a7f3;
+  --theme-blue-rgb: 102, 167, 243;
+
+  /* Custom red accent for reports (dark mode default) */
+  --theme-red: #ee3d4c;
+  --theme-red-rgb: 238, 61, 76;
+
+  /* Custom yellow/amber accent for reports (dark mode default) */
+  --theme-yellow: #f59e0b;
+  --theme-yellow-rgb: 245, 158, 11;
+
+  /* Custom green accent for reports (dark mode default) */
+  --theme-green: #2fbc8b;
+  --theme-green-rgb: 47, 188, 139;
+
+  /* Custom purple accent for reports (dark mode default) */
+  --theme-purple: #bf92e9;
+  --theme-purple-rgb: 191, 146, 233;
+
+  /* Light Theme (default) - Soft warm cream, easy on the eyes */
+  --theme-bg: #faf8f5;
+  --theme-bg-rgb: 250, 248, 245;
+  --theme-bg-alpha-60: rgba(250, 248, 245, 0.6);
+  --theme-bg-alpha-80: rgba(250, 248, 245, 0.8);
+  --theme-bg-alpha-90: rgba(250, 248, 245, 0.9);
+  --theme-text-primary: #1a1a1a;
+  --theme-text-secondary: #555555;
+  --theme-glass-bg: rgba(249, 247, 243, 0.65);
+  --theme-glass-border: rgba(0, 0, 0, 0.08);
+  --theme-card-bg: #fefdfc;
+  --theme-card-border: rgba(0, 0, 0, 0.06);
+  --theme-button-bg: rgba(249, 247, 243, 0.65);
+  --theme-button-text: #3a3a3a;
+  --theme-button-border: rgba(0, 0, 0, 0.1);
+  --theme-footer-bg: rgba(249, 247, 243, 0.65);
+  --theme-footer-border: rgba(0, 0, 0, 0.05);
+  --theme-badge-bg: rgba(0, 0, 0, 0.04);
+  --theme-badge-border: rgba(0, 0, 0, 0.08);
+  --theme-premium-bg: rgba(0, 0, 0, 0.03);
+  --theme-premium-border: rgba(0, 0, 0, 0.08);
+  --theme-input-bg: rgba(249, 247, 243, 0.65);
+  --theme-input-border: rgba(0, 0, 0, 0.12);
+  --theme-input-text: #1a1a1a;
+  --theme-input-placeholder: #777777;
+  --theme-card-bg-rgb: 254, 253, 252;
+}
+
+html.theme-light {
+  /* Soft light theme - warm cream, easy on the eyes */
+  --accent-color: #4a4a4a;
+  --accent-color-rgb: 74, 74, 74;
+
+  /* Custom blue accent for reports (light mode) */
+  --theme-blue: #0d54a8;
+  --theme-blue-rgb: 13, 84, 168;
+
+  /* Custom red accent for reports (light mode) */
+  --theme-red: #d51323;
+  --theme-red-rgb: 213, 19, 35;
+
+  /* Custom yellow/amber accent for reports (light mode) */
+  --theme-yellow: #cf6900;
+  --theme-yellow-rgb: 207, 105, 0;
+
+  /* Custom green accent for reports (light mode) */
+  --theme-green: #178e66;
+  --theme-green-rgb: 23, 142, 102;
+
+  /* Custom purple accent for reports (light mode) */
+  --theme-purple: #6f1cbd;
+  --theme-purple-rgb: 111, 28, 189;
+
+  --theme-bg: #faf8f5;
+  --theme-bg-rgb: 250, 248, 245;
+  --theme-bg-alpha-60: rgba(250, 248, 245, 0.6);
+  --theme-bg-alpha-80: rgba(250, 248, 245, 0.8);
+  --theme-bg-alpha-90: rgba(250, 248, 245, 0.9);
+  --theme-text-primary: #1a1a1a;
+  --theme-text-secondary: #555555;
+  --theme-glass-bg: rgba(249, 247, 243, 0.65);
+  --theme-glass-border: rgba(0, 0, 0, 0.08);
+  /* Subtle card background - warm cream tones */
+  --theme-card-bg: #fefdfc;
+  --theme-card-border: rgba(0, 0, 0, 0.06);
+  --theme-button-bg: rgba(249, 247, 243, 0.65);
+  --theme-button-text: #3a3a3a;
+  --theme-button-border: rgba(0, 0, 0, 0.1);
+  --theme-footer-bg: rgba(249, 247, 243, 0.65);
+  --theme-footer-border: rgba(0, 0, 0, 0.05);
+  --theme-badge-bg: rgba(0, 0, 0, 0.04);
+  --theme-badge-border: rgba(0, 0, 0, 0.08);
+  --theme-premium-bg: rgba(0, 0, 0, 0.03);
+  --theme-premium-border: rgba(0, 0, 0, 0.08);
+  --theme-input-bg: rgba(249, 247, 243, 0.65);
+  --theme-input-border: rgba(0, 0, 0, 0.12);
+  --theme-input-text: #1a1a1a;
+  --theme-input-placeholder: #777777;
+  --theme-card-bg-rgb: 254, 253, 252;
+  /* Slightly more blur for light theme */
+  --theme-glass-blur: 14px;
+}
+
+html.theme-dark {
+  /* Softer dark theme - not pure black, better contrast */
+  --theme-bg: #121212;
+  --theme-bg-rgb: 18, 18, 18;
+  --theme-bg-alpha-60: rgba(18, 18, 18, 0.6);
+  --theme-bg-alpha-80: rgba(18, 18, 18, 0.8);
+  --theme-bg-alpha-90: rgba(18, 18, 18, 0.9);
+  --theme-text-primary: #fafafa;
+  --theme-text-secondary: #a8a29e;
+  --theme-glass-bg: rgba(255, 255, 255, 0.04);
+  --theme-glass-border: rgba(255, 255, 255, 0.08);
+  /* Subtle card background for dark theme - less contrast */
+  --theme-card-bg: rgba(255, 255, 255, 0.03);
+  --theme-card-border: rgba(255, 255, 255, 0.08);
+  --theme-button-bg: rgba(30, 30, 30, 0.8);
+  --theme-button-text: #e5e5e5;
+  --theme-button-border: rgba(255, 255, 255, 0.1);
+  --theme-footer-bg: rgba(18, 18, 18, 0.9);
+  --theme-footer-border: rgba(255, 255, 255, 0.06);
+  --theme-badge-bg: rgba(255, 255, 255, 0.04);
+  --theme-badge-border: rgba(255, 255, 255, 0.08);
+  --theme-premium-bg: rgba(255, 255, 255, 0.04);
+  --theme-premium-border: rgba(255, 255, 255, 0.08);
+  --theme-input-bg: rgba(255, 255, 255, 0.05);
+  --theme-input-border: rgba(255, 255, 255, 0.12);
+  --theme-input-text: #fafafa;
+  --theme-input-placeholder: #a8a29e;
+  --theme-card-bg-rgb: 28, 28, 28;
+  /* Slightly lighter blur for dark for a crisper glass look */
+  --theme-glass-blur: 14px;
+}
+
+html.theme-darkmatter {
+  /* Dark Matter theme - deep cosmic blacks with stellar yellow accents */
+  /* From tweakcn.com darkmatter preset */
+  --theme-bg: #0d0d0f;
+  --theme-bg-rgb: 13, 13, 15;
+  --theme-bg-alpha-60: rgba(13, 13, 15, 0.6);
+  --theme-bg-alpha-80: rgba(13, 13, 15, 0.8);
+  --theme-bg-alpha-90: rgba(13, 13, 15, 0.9);
+  --theme-text-primary: #cfcfcf;
+  --theme-text-secondary: #8a8a8a;
+  --theme-glass-bg: rgba(255, 255, 255, 0.03);
+  --theme-glass-border: rgba(212, 163, 0, 0.15);
+  /* Card with subtle cosmic depth */
+  --theme-card-bg: rgba(26, 26, 26, 0.5);
+  --theme-card-border: rgba(60, 60, 60, 0.4);
+  --theme-button-bg: rgba(40, 40, 40, 0.8);
+  --theme-button-text: #cfcfcf;
+  --theme-button-border: rgba(212, 163, 0, 0.25);
+  --theme-footer-bg: rgba(13, 13, 15, 0.95);
+  --theme-footer-border: rgba(60, 60, 60, 0.3);
+  --theme-badge-bg: rgba(212, 163, 0, 0.1);
+  --theme-badge-border: rgba(212, 163, 0, 0.2);
+  --theme-premium-bg: rgba(212, 163, 0, 0.08);
+  --theme-premium-border: rgba(212, 163, 0, 0.2);
+  --theme-input-bg: rgba(26, 26, 26, 0.7);
+  --theme-input-border: rgba(60, 60, 60, 0.5);
+  --theme-input-text: #cfcfcf;
+  --theme-input-placeholder: #666666;
+  --theme-card-bg-rgb: 26, 26, 26;
+  /* Sharper blur for cosmic depth */
+  --theme-glass-blur: 16px;
+}
+
+/* Apply glass blur to common glassy surfaces when dark theme is active */
+html.theme-dark .glass-luxury-card,
+html.theme-dark .glass-component,
+html.theme-dark .chart-container,
+html.theme-dark .kpi-card,
+html.theme-dark .chat-panel,
+html.theme-dark .glass-footer,
+html.theme-dark .premium-badge,
+html.theme-dark .zenith-input,
+html.theme-dark .zenith-select,
+html.theme-dark .zenith-textarea {
+  backdrop-filter: blur(var(--theme-glass-blur));
+  -webkit-backdrop-filter: blur(var(--theme-glass-blur));
+}
+
+/* Apply glass blur for darkmatter theme with cosmic depth */
+html.theme-darkmatter .glass-luxury-card,
+html.theme-darkmatter .glass-component,
+html.theme-darkmatter .chart-container,
+html.theme-darkmatter .kpi-card,
+html.theme-darkmatter .chat-panel,
+html.theme-darkmatter .glass-footer,
+html.theme-darkmatter .premium-badge,
+html.theme-darkmatter .zenith-input,
+html.theme-darkmatter .zenith-select,
+html.theme-darkmatter .zenith-textarea {
+  backdrop-filter: blur(var(--theme-glass-blur));
+  -webkit-backdrop-filter: blur(var(--theme-glass-blur));
+}
+
+/* ===============================================
+   GLOBAL THEME FADE (OPTIMIZED)
+   =============================================== */
+html.theme-transitioning .shell-base,
+html.theme-transitioning .theme-text-primary,
+html.theme-transitioning .theme-text-secondary,
+html.theme-transitioning .theme-border,
+html.theme-transitioning .theme-card-bg,
+html.theme-transitioning .glass-component,
+html.theme-transitioning .glass-luxury,
+html.theme-transitioning .glass-luxury-card,
+html.theme-transitioning .schedule-demo-btn,
+html.theme-transitioning .schedule-demo-btn-landing,
+html.theme-transitioning .glass-footer,
+html.theme-transitioning .premium-badge,
+html.theme-transitioning .zenith-input,
+html.theme-transitioning .zenith-select,
+html.theme-transitioning .zenith-textarea,
+html.theme-transitioning .zenith-label {
+  transition:
+    background-color var(--theme-transition),
+    color var(--theme-transition),
+    border-color var(--theme-transition);
+}
+
+/* ===============================================
+   ORBIT RING STYLES (Integration Section)
+   =============================================== */
+html.theme-light .orbit-ring-outer {
+  border-color: rgba(100, 116, 139, 0.35);
+  background-color: rgba(241, 245, 249, 0.5);
+}
+
+html.theme-light .orbit-ring-inner {
+  border-color: rgba(100, 116, 139, 0.35);
+}
+
+/* ===============================================
+   HERO GRID PATTERN STYLES
+   =============================================== */
+html.theme-light .hero-grid-container {
+  border-color: rgba(100, 116, 139, 0.3);
+}
+
+html.theme-light .hero-grid-pattern {
+  stroke: rgba(100, 116, 139, 0.4);
+}
+
+/* ===============================================
+   SEAMLESS BACKGROUND GRADIENT VARIABLES
+   =============================================== */
+
+:root {
+  /* Amber gradient overlay (matches Background.tsx) */
+  --gradient-amber-overlay:
+    linear-gradient(
+      to bottom right,
+      rgba(251, 191, 36, 0.006) 0%,
+      transparent 50%,
+      rgba(217, 119, 6, 0.006) 100%
+    ),
+    linear-gradient(
+      to top left,
+      rgba(245, 158, 11, 0.003) 0%,
+      transparent 50%,
+      rgba(252, 211, 77, 0.003) 100%
+    );
+
+  /* Cyan glow from main layout */
+  --gradient-cyan-glow: radial-gradient(
+    ellipse at top center,
+    rgba(34, 211, 238, 0.2) 0%,
+    rgba(34, 211, 238, 0.1) 35%,
+    transparent 70%
+  );
+
+  /* Combined seamless background for sidebar - simplified for performance */
+  --sidebar-seamless-bg: var(--gradient-cyan-glow), var(--theme-bg);
+}
+
+/* Theme-specific gradient adjustments */
+html.theme-light {
+  --gradient-amber-overlay:
+    linear-gradient(
+      to bottom right,
+      rgba(251, 191, 36, 0.004) 0%,
+      transparent 50%,
+      rgba(217, 119, 6, 0.004) 100%
+    ),
+    linear-gradient(
+      to top left,
+      rgba(245, 158, 11, 0.002) 0%,
+      transparent 50%,
+      rgba(252, 211, 77, 0.002) 100%
+    );
+}
+
+html.theme-dark {
+  --gradient-amber-overlay:
+    linear-gradient(
+      to bottom right,
+      rgba(251, 191, 36, 0.01) 0%,
+      transparent 50%,
+      rgba(217, 119, 6, 0.01) 100%
+    ),
+    linear-gradient(
+      to top left,
+      rgba(245, 158, 11, 0.005) 0%,
+      transparent 50%,
+      rgba(252, 211, 77, 0.005) 100%
+    );
+}
+
+html.theme-darkmatter {
+  --gradient-amber-overlay:
+    linear-gradient(
+      to bottom right,
+      rgba(212, 163, 0, 0.008) 0%,
+      transparent 50%,
+      rgba(180, 140, 60, 0.008) 100%
+    ),
+    linear-gradient(
+      to top left,
+      rgba(212, 163, 0, 0.004) 0%,
+      transparent 50%,
+      rgba(200, 165, 90, 0.004) 100%
+    );
+}
+
+/* ===============================================
+   VIEW TRANSITIONS API - THEME TOGGLE ANIMATION
+   =============================================== */
+
+/* Default transition origin (center of screen) */
+:root {
+  --theme-transition-x: 50vw;
+  --theme-transition-y: 50vh;
+}
+
+/* Disable default cross-fade animation */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Circular reveal animation for the new theme */
+::view-transition-new(root) {
+  animation: theme-circle-reveal 500ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 1;
+}
+
+/* Keep old state visible underneath during transition */
+::view-transition-old(root) {
+  z-index: 0;
+}
+
+@keyframes theme-circle-reveal {
+  from {
+    clip-path: circle(0% at var(--theme-transition-x) var(--theme-transition-y));
+  }
+  to {
+    clip-path: circle(150vmax at var(--theme-transition-x) var(--theme-transition-y));
+  }
+}
+
+/* Reverse animation when switching to light theme (optional: expanding from dark) */
+html.theme-light::view-transition-new(root) {
+  animation: theme-circle-reveal 500ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ===============================================
+   VIEW TRANSITIONS API - PAGE NAVIGATION ANIMATIONS
+   =============================================== */
+
+/* Top-Down Sweep Transition (for report card navigation) */
+html[data-view-transition='top-down-sweep']::view-transition-old(root),
+html[data-view-transition='top-down-sweep']::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-view-transition='top-down-sweep']::view-transition-old(root) {
+  z-index: 0;
+}
+
+html[data-view-transition='top-down-sweep']::view-transition-new(root) {
+  animation: page-sweep-down 3000ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 1;
+}
+
+@keyframes page-sweep-down {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Amber sweep line overlay - appears during view transition */
+/* Constrained to main content area using CSS variables set by useViewTransitionRouter */
+html[data-view-transition='top-down-sweep']::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: var(--sweep-left, 0);
+  width: var(--sweep-width, 100%);
+  height: 4px;
+  background: linear-gradient(to bottom, transparent 0%, #f59e0b 50%, rgba(245, 158, 11, 0.5) 100%);
+  box-shadow:
+    0 0 20px 4px rgba(245, 158, 11, 0.8),
+    0 0 40px 8px rgba(245, 158, 11, 0.4);
+  z-index: 999999;
+  pointer-events: none;
+  animation: sweep-line-down 3000ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes sweep-line-down {
+  from {
+    top: 0%;
+  }
+  to {
+    top: 100%;
+  }
+}
+
+/* Fade Transition - constrained to main content only */
+/* Give the main content container its own view transition name */
+html[data-view-transition='fade'] .dashboard-container {
+  view-transition-name: main-content;
+}
+
+/* Disable root transition for fade - keeps sidebar/chat static */
+html[data-view-transition='fade']::view-transition-old(root),
+html[data-view-transition='fade']::view-transition-new(root) {
+  animation: none;
+}
+
+/* Animate only the main content area */
+/* Sequential: fade out first, then fade in */
+html[data-view-transition='fade']::view-transition-old(main-content) {
+  animation: page-fade-out 250ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 2;
+}
+
+html[data-view-transition='fade']::view-transition-new(main-content) {
+  animation: page-fade-in 250ms cubic-bezier(0.4, 0, 0.2, 1) 250ms forwards;
+  opacity: 0;
+  z-index: 1;
+}
+
+@keyframes page-fade-out {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+
+@keyframes page-fade-in {
+  0% {
+    opacity: 0;
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* Radial Transition (for custom origin point navigation) */
+html[data-view-transition='radial']::view-transition-old(root),
+html[data-view-transition='radial']::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-view-transition='radial']::view-transition-old(root) {
+  z-index: 0;
+}
+
+html[data-view-transition='radial']::view-transition-new(root) {
+  animation: page-radial-reveal 450ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 1;
+}
+
+@keyframes page-radial-reveal {
+  from {
+    clip-path: circle(0% at var(--view-transition-x, 50%) var(--view-transition-y, 50%));
+  }
+  to {
+    clip-path: circle(150vmax at var(--view-transition-x, 50%) var(--view-transition-y, 50%));
+  }
+}
+
+/* ===============================================
+   ACCESSIBILITY - REDUCED MOTION
+   =============================================== */
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Calendar icon warm glow on hover */
+  .calendar-glow {
+    filter: drop-shadow(0 0 0 transparent);
+    transition:
+      filter 300ms ease,
+      stroke-width 300ms ease;
+  }
+  .date-trigger:hover .calendar-glow {
+    filter: drop-shadow(0 0 2px var(--theme-yellow)) drop-shadow(0 0 6px var(--theme-yellow));
+    stroke-width: 2.5;
+  }
+  .date-trigger {
+    border-bottom-color: rgba(128, 128, 128, 0.2) !important;
+    border-bottom-style: solid !important;
+    transition: border-color 300ms ease;
+  }
+  .date-trigger:hover {
+    border-bottom-color: var(--theme-yellow) !important;
+  }
+
+  /* Instant theme change without animation */
+  html.theme-transitioning .shell-base,
+  html.theme-transitioning .theme-text-primary,
+  html.theme-transitioning .theme-text-secondary,
+  html.theme-transitioning .theme-border,
+  html.theme-transitioning .theme-card-bg,
+  html.theme-transitioning .glass-component,
+  html.theme-transitioning .glass-luxury,
+  html.theme-transitioning .glass-luxury-card {
+    transition: none !important;
+  }
+}

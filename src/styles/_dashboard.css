@@ -1,0 +1,1775 @@
+/* src/styles/_dashboard.css */
+/* ===============================================
+   DASHBOARD COMPONENTS & ANIMATIONS (IMPROVED)
+   =============================================== */
+
+/* App Header Styles */
+
+:root {
+  --transition-fast: 150ms ease-out;
+  --transition-normal: 200ms ease-out;
+  --transition-slow: 300ms ease-out;
+  --transition-layout: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Theme-specific arrow colors for transactions */
+html.theme-light .text-emerald-400 {
+  color: #10b981 !important;
+}
+html.theme-light .text-red-400 {
+  color: #ef4444 !important;
+}
+
+html.theme-dark .text-emerald-400 {
+  color: #059669 !important;
+}
+html.theme-dark .text-red-400 {
+  color: #dc2626 !important;
+}
+
+/* Theme-specific pagination button colors */
+html.theme-light .chart-container button svg {
+  color: #374151;
+  transition: color var(--transition-fast);
+}
+
+html.theme-light .chart-container button:hover svg {
+  color: #111827;
+}
+
+html.theme-dark .chart-container button svg {
+  color: #4b5563 !important;
+  transition: color var(--transition-fast);
+}
+
+html.theme-dark .chart-container button:hover svg {
+  color: #1f2937 !important;
+}
+
+/* ===============================================
+   CUSTOMER TABS FIX
+   =============================================== */
+
+/* Fix for customer page tabs highlighting issue */
+[role='tablist'] [role='tab'][data-state='active'] {
+  background-color: var(--theme-card-bg);
+  border-color: var(--theme-card-border);
+}
+
+[role='tablist'] [role='tab'][data-state='inactive'] {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+/* Ensure tabs don't maintain active state incorrectly */
+[role='tablist'] [role='tab'] {
+  transition: all var(--transition-fast);
+}
+
+[role='tablist'] [role='tab']:not([data-state='active']):hover {
+  background-color: rgba(245, 158, 11, 0.1);
+}
+
+/* Dashboard tabs specific override - no background, only underline */
+.dashboard-tabs [role='tab'][data-state='active'] {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-bottom-color: #f59e0b !important;
+}
+
+.dashboard-tabs [role='tab'][data-state='inactive'] {
+  background-color: transparent !important;
+}
+
+.dashboard-tabs [role='tab']:hover {
+  background-color: transparent !important;
+}
+
+/* Disabled state for pagination buttons */
+html.theme-light .chart-container button:disabled svg {
+  color: #d1d5db !important;
+}
+
+html.theme-dark .chart-container button:disabled svg {
+  color: #9ca3af !important;
+}
+
+/* Custom Scrollbar Styling */
+.styled-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 158, 11, 0.3) transparent;
+}
+
+.styled-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.styled-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.styled-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.3);
+  border-radius: 3px;
+  transition: background var(--transition-fast);
+}
+
+.styled-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.5);
+}
+
+/* Theme-specific scrollbar colors */
+html.theme-dark .styled-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.25);
+}
+
+html.theme-dark .styled-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.45);
+}
+
+/* Sidebar scrollbar — hidden by default, revealed via JS-controlled class after hover delay */
+.sidebar-scrollbar {
+  scrollbar-color: transparent transparent;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.sidebar-scrollbar.scrollbar-visible {
+  scrollbar-color: rgba(245, 158, 11, 0.3) transparent;
+}
+
+.sidebar-scrollbar.scrollbar-visible::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.25);
+}
+
+.sidebar-scrollbar.scrollbar-visible::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.45);
+}
+
+/* Hide scrollbar completely */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Layout containers */
+.dashboard-container {
+  transition:
+    margin-left var(--transition-layout),
+    margin-right var(--transition-layout);
+  min-height: 100vh;
+  /* Add container query support */
+  container-type: inline-size;
+}
+
+/* TopBar styles - solid background with blur */
+.dashboard-topbar {
+  background: var(--theme-bg);
+
+  /* Smooth transitions */
+  transition: background var(--transition-layout);
+}
+
+/* Theme-specific topbar border colors */
+html.theme-light .dashboard-topbar {
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+html.theme-darkmatter .dashboard-topbar {
+  border-bottom-color: rgba(212, 163, 0, 0.15);
+}
+
+/* Sidebar styles - solid opaque background */
+.dashboard-sidebar {
+  background: var(--theme-bg);
+
+  /* Smooth transitions */
+  transition: width var(--transition-layout);
+
+  /* Keep border styling */
+  border: none;
+  border-right: 1px solid rgba(245, 158, 11, 0.1);
+
+  z-index: 50;
+}
+
+/* Theme-specific sidebar border colors */
+html.theme-light .dashboard-sidebar {
+  border-right-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Light mode: sidebar hover uses landing-page orange */
+html.theme-light .dashboard-sidebar-item::before {
+  background: rgba(207, 105, 0, 0.5);
+}
+
+html.theme-light .dashboard-sidebar-item.active:not(.dashboard-sidebar-child)::before {
+  background: #cf6900;
+}
+
+html.theme-light .dashboard-sidebar-item:not(.active):hover {
+  background-color: rgba(207, 105, 0, 0.05);
+}
+
+html.theme-light .dashboard-sidebar-child:not(.active):hover {
+  background-color: rgba(207, 105, 0, 0.03);
+}
+
+/* Light mode: click/press feedback uses landing-page orange */
+html.theme-light .dashboard-sidebar-item:not(.active):active {
+  background-color: rgba(207, 105, 0, 0.1);
+}
+
+html.theme-light .dashboard-sidebar-item:not(.active):active::before {
+  background: #cf6900;
+}
+
+html.theme-darkmatter .dashboard-sidebar {
+  border-right-color: rgba(212, 163, 0, 0.15);
+}
+
+/* Chat panel styles - solid opaque background */
+.dashboard-chat {
+  background: var(--theme-bg);
+
+  /* Smooth transitions */
+  transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Only left border - no top/bottom */
+  border: none;
+  border-left: 1px solid rgba(245, 158, 11, 0.1);
+
+  z-index: 40;
+}
+
+/* Theme-specific chat panel border colors */
+html.theme-light .dashboard-chat {
+  border-left-color: rgba(0, 0, 0, 0.06);
+}
+
+html.theme-darkmatter .dashboard-chat {
+  border-left-color: rgba(212, 163, 0, 0.15);
+}
+
+.dashboard-sidebar-item {
+  color: var(--theme-text-secondary);
+  transition:
+    background-color 250ms ease,
+    color 200ms ease;
+  border-radius: 12px;
+  margin: 1px 0;
+  position: relative;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Hover accent line — always present, animated via scaleY */
+.dashboard-sidebar-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 25%;
+  height: 50%;
+  width: 2px;
+  background: rgba(245, 158, 11, 0.45);
+  border-radius: 0 2px 2px 0;
+  transform: scaleY(0);
+  transform-origin: center;
+  transition:
+    transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 250ms ease;
+  opacity: 0;
+}
+
+.dashboard-sidebar-item:not(.active):hover::before {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+/* Active items get a persistent accent line */
+.dashboard-sidebar-item.active:not(.dashboard-sidebar-child)::before {
+  transform: scaleY(1);
+  opacity: 1;
+  background: #f59e0b;
+}
+
+/* Ensure child icons are always visible */
+.dashboard-sidebar-child svg {
+  visibility: visible !important;
+}
+
+/* Remove any L-shape specific styling for active items */
+
+/* Hover effect for child items in collapsed state */
+.dashboard-sidebar:not(.w-\[280px\]) .dashboard-sidebar-child:hover {
+  background: none;
+  transform: none;
+}
+
+/* Child items inherit parent hover color */
+.dashboard-sidebar-child:hover svg {
+  opacity: 1 !important;
+  color: var(--theme-text-primary) !important;
+}
+
+.dashboard-sidebar-item:hover {
+  color: var(--theme-text-primary);
+}
+
+/* Hover background warmth */
+.dashboard-sidebar-item:not(.active):hover {
+  background-color: rgba(245, 158, 11, 0.04);
+}
+
+/* Click/press feedback — tactile response on mousedown */
+.dashboard-sidebar-item:not(.active):active {
+  background-color: rgba(245, 158, 11, 0.1);
+  transform: scale(0.98);
+  transition:
+    background-color 80ms ease-out,
+    transform 80ms ease-out,
+    color 200ms ease;
+}
+
+.dashboard-sidebar-item:not(.active):active::before {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.dashboard-sidebar-item.active:active {
+  transform: scale(0.98);
+  transition:
+    transform 80ms ease-out,
+    background-color 80ms ease-out;
+}
+
+/* Child items: subtler hover, no left accent */
+.dashboard-sidebar-child:not(.active):hover {
+  background-color: rgba(245, 158, 11, 0.03);
+}
+
+.dashboard-sidebar-child::before {
+  display: none !important;
+}
+
+.dashboard-sidebar-item.active:not(.dashboard-sidebar-child) {
+  background: none;
+  color: #f59e0b;
+}
+
+html.theme-light .dashboard-sidebar-item.active:not(.dashboard-sidebar-child) {
+  color: #cf6900;
+}
+
+.dashboard-sidebar-item.dashboard-sidebar-child.active {
+  background: transparent;
+  color: #f59e0b;
+}
+
+html.theme-light .dashboard-sidebar-item.dashboard-sidebar-child.active {
+  color: #cf6900;
+}
+
+/* KPI Cards - Enhanced styling */
+.kpi-card {
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-card-border);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  transition: all var(--transition-normal);
+  position: relative;
+  height: 176px;
+  /* Remove overflow: hidden to allow tooltips to show */
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+/* Static variant - disables hover movement for cards that should remain stationary */
+.kpi-card.kpi-card-static:hover {
+  transform: none;
+}
+
+/* Minimal theme variant: darker glass background for visual separation */
+html.theme-dark .kpi-card.kpi-card-dark {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  transition: background var(--transition-normal);
+}
+
+.kpi-card:hover::before {
+  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.3), transparent);
+}
+
+/* Base Grid Definitions */
+.kpi-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  container-type: inline-size;
+}
+
+/* Container query responsive grid - replaces old media query approach */
+@container (min-width: 1200px) {
+  .kpi-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@container (min-width: 900px) and (max-width: 1199px) {
+  .kpi-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@container (min-width: 600px) and (max-width: 899px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@container (max-width: 599px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Chart container fixed sizing to prevent content overflow affecting layout */
+.chart-container {
+  min-height: 400px;
+  max-height: 500px;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-container .card-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Tooltip button hover color fix - match KPI cards */
+.chart-container button[data-slot='button']:hover,
+.chart-container button.hover\:bg-accent:hover {
+  background-color: rgb(245 158 11 / 0.1) !important;
+}
+
+/* Mobile-specific adjustments */
+/* Mobile - sidebar is hidden, using bottom nav bar instead */
+@media (max-width: 767px) {
+  .dashboard-sidebar {
+    display: none !important;
+  }
+
+  .dashboard-sidebar-backdrop {
+    display: none !important;
+  }
+}
+
+/* Tablet - same behavior as desktop: mini sidebar with hover expand */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .dashboard-sidebar {
+    /* Same as desktop - always visible, no transform needed */
+    position: fixed;
+    top: 56px; /* Below topbar */
+    left: 0;
+    height: calc(100vh - 56px);
+    z-index: 50;
+    /* Flat background - no gradient */
+    background: var(--theme-bg);
+    /* Width controlled by component classes (w-[240px] or w-[64px]) */
+  }
+
+  /* No backdrop needed for tablet - sidebar doesn't overlay */
+  .dashboard-sidebar-backdrop {
+    display: none;
+  }
+}
+
+/* Chart containers */
+.chart-container {
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-card-border);
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-normal);
+  position: relative;
+  /* Remove overflow: hidden to allow tooltips to show */
+}
+
+.chart-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  opacity: 0;
+  transition: all var(--transition-normal);
+}
+
+.chart-container:hover::before {
+  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.2), transparent);
+  opacity: 1;
+}
+
+.chart-container:hover {
+  border-color: rgba(245, 158, 11, 0.2);
+  transform: translateY(-1px);
+}
+
+.chart-title {
+  color: var(--theme-text-primary);
+  font-size: 1.125rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color var(--transition-fast);
+}
+
+/* Chat Panel - base styles (overridden by .dashboard-chat for docked mode) */
+.chat-panel {
+  background: var(--theme-bg);
+  transition:
+    transform var(--transition-layout),
+    left var(--transition-layout);
+}
+
+/* Docked chat panel - no borders except left */
+.chat-panel.dashboard-chat {
+  border: none !important;
+  border-left: 1px solid rgba(245, 158, 11, 0.1) !important;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+/* Insights panel */
+.insights-panel {
+  background: var(--theme-card-bg);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  transition: all var(--transition-normal);
+}
+
+/* Loading states with improved animations */
+.kpi-skeleton {
+  background: var(--theme-card-bg);
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  height: 176px;
+  border: 1px solid var(--theme-card-border);
+}
+
+/* Skeleton base styles with shimmer overlay */
+.kpi-skeleton::after,
+.chart-skeleton::after,
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.3) 50%, transparent 100%);
+  animation: shimmer 1.5s infinite;
+}
+
+/* Chart skeleton */
+.chart-skeleton {
+  background: var(--theme-card-bg);
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid var(--theme-card-border);
+}
+
+/* Generic skeleton for other elements */
+.skeleton {
+  background: var(--theme-card-bg);
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Theme-specific skeleton adjustments */
+html.theme-light .kpi-skeleton,
+html.theme-light .chart-skeleton,
+html.theme-light .skeleton {
+  background: rgba(241, 245, 249, 0.5);
+}
+
+/* Theme-specific skeleton backgrounds use theme variables */
+html.theme-light .kpi-skeleton,
+html.theme-light .chart-skeleton,
+html.theme-light .skeleton {
+  background: var(--theme-glass-bg);
+}
+
+html.theme-dark .kpi-skeleton,
+html.theme-dark .chart-skeleton,
+html.theme-dark .skeleton {
+  background: var(--theme-card-bg);
+  opacity: 0.3;
+}
+
+/* Enhanced tooltip styling */
+.kpi-tooltip {
+  background: rgb(var(--theme-card-bg-rgb));
+  border: 1px solid var(--theme-card-border);
+  color: var(--theme-text-primary);
+  font-weight: 500;
+  line-height: 1.4;
+  transition: all var(--transition-fast);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 9999 !important;
+}
+
+/* Prevent white background on tooltip buttons */
+.chart-container button.hover\:bg-accent:hover,
+.kpi-card button.hover\:bg-accent:hover,
+.group:hover button[class*='hover:bg-amber-500/10'] {
+  background-color: transparent !important;
+}
+
+/* Icon color variations for different themes */
+html.theme-light .kpi-card .text-emerald-500 {
+  color: #10b981;
+}
+html.theme-light .kpi-card .text-blue-500 {
+  color: #3b82f6;
+}
+html.theme-light .kpi-card .text-purple-500 {
+  color: #8b5cf6;
+}
+html.theme-light .kpi-card .text-amber-500 {
+  color: #f59e0b;
+}
+html.theme-light .kpi-card .text-orange-500 {
+  color: #f97316;
+}
+html.theme-light .kpi-card .text-cyan-500 {
+  color: #06b6d4;
+}
+html.theme-light .kpi-card .text-green-500 {
+  color: #22c55e;
+}
+html.theme-light .kpi-card .text-red-500 {
+  color: #ef4444;
+}
+
+/* Custom themed blue color utility class */
+.text-theme-blue {
+  color: var(--theme-blue);
+}
+
+.bg-theme-blue {
+  background-color: var(--theme-blue);
+}
+
+.bg-theme-blue\/10 {
+  background-color: rgba(var(--theme-blue-rgb), 0.1);
+}
+
+.bg-theme-blue\/20 {
+  background-color: rgba(var(--theme-blue-rgb), 0.2);
+}
+
+.border-theme-blue\/20 {
+  border-color: rgba(var(--theme-blue-rgb), 0.2);
+}
+
+.border-theme-blue\/30 {
+  border-color: rgba(var(--theme-blue-rgb), 0.3);
+}
+
+/* Custom themed red color utility class */
+.text-theme-red {
+  color: var(--theme-red);
+}
+
+.bg-theme-red {
+  background-color: var(--theme-red);
+}
+
+.bg-theme-red\/10 {
+  background-color: rgba(var(--theme-red-rgb), 0.1);
+}
+
+.bg-theme-red\/20 {
+  background-color: rgba(var(--theme-red-rgb), 0.2);
+}
+
+.border-theme-red\/20 {
+  border-color: rgba(var(--theme-red-rgb), 0.2);
+}
+
+.border-theme-red\/30 {
+  border-color: rgba(var(--theme-red-rgb), 0.3);
+}
+
+/* Custom themed yellow/orange color utility class */
+.text-theme-yellow {
+  color: var(--theme-yellow);
+}
+
+.bg-theme-yellow {
+  background-color: var(--theme-yellow);
+}
+
+.bg-theme-yellow\/10 {
+  background-color: rgba(var(--theme-yellow-rgb), 0.1);
+}
+
+.bg-theme-yellow\/20 {
+  background-color: rgba(var(--theme-yellow-rgb), 0.2);
+}
+
+.border-theme-yellow\/20 {
+  border-color: rgba(var(--theme-yellow-rgb), 0.2);
+}
+
+.border-theme-yellow\/30 {
+  border-color: rgba(var(--theme-yellow-rgb), 0.3);
+}
+
+/* Custom themed green color utility class */
+.text-theme-green {
+  color: var(--theme-green);
+}
+
+.bg-theme-green {
+  background-color: var(--theme-green);
+}
+
+.bg-theme-green\/10 {
+  background-color: rgba(var(--theme-green-rgb), 0.1);
+}
+
+.bg-theme-green\/20 {
+  background-color: rgba(var(--theme-green-rgb), 0.2);
+}
+
+.border-theme-green {
+  border-color: var(--theme-green);
+}
+
+.border-theme-green\/20 {
+  border-color: rgba(var(--theme-green-rgb), 0.2);
+}
+
+.border-theme-green\/30 {
+  border-color: rgba(var(--theme-green-rgb), 0.3);
+}
+
+/* Custom themed purple color utility classes */
+.text-theme-purple {
+  color: var(--theme-purple);
+}
+
+.bg-theme-purple {
+  background-color: var(--theme-purple);
+}
+
+.bg-theme-purple\/5 {
+  background-color: rgba(var(--theme-purple-rgb), 0.05);
+}
+
+.bg-theme-purple\/10 {
+  background-color: rgba(var(--theme-purple-rgb), 0.1);
+}
+
+.bg-theme-purple\/20 {
+  background-color: rgba(var(--theme-purple-rgb), 0.2);
+}
+
+.border-theme-purple {
+  border-color: var(--theme-purple);
+}
+
+.border-theme-purple\/20 {
+  border-color: rgba(var(--theme-purple-rgb), 0.2);
+}
+
+.border-theme-purple\/30 {
+  border-color: rgba(var(--theme-purple-rgb), 0.3);
+}
+
+/* Button styling improvements */
+.dashboard-sidebar button {
+  color: var(--theme-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.dashboard-sidebar button:hover {
+  color: var(--theme-text-primary);
+}
+
+.chat-panel button {
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.chat-panel input {
+  background: var(--theme-input-bg);
+  border-color: var(--theme-input-border);
+  color: var(--theme-input-text);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.chat-panel input::placeholder {
+  color: var(--theme-input-placeholder);
+}
+
+.chat-panel input:focus {
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+html.theme-light .chat-panel button {
+  color: var(--theme-text-secondary);
+}
+
+html.theme-dark .chat-panel button {
+  color: var(--theme-text-secondary);
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-container,
+  .dashboard-sidebar,
+  .kpi-card,
+  .chat-panel,
+  .insight-item,
+  .kpi-skeleton,
+  .chart-skeleton,
+  .skeleton {
+    transition: none;
+  }
+
+  .kpi-skeleton,
+  .chart-skeleton,
+  .skeleton {
+    animation: none;
+    background: var(--theme-card-bg);
+  }
+}
+
+div[data-slot='card-content'] .relative .inset-0 {
+  transition: all 3s linear;
+}
+
+/* Better number spacing */
+.kpi-value {
+  letter-spacing: 0.03em; /* Increased from default */
+}
+
+/* Fix color box clipping */
+.kpi-card {
+  overflow: visible; /* Changed from hidden */
+}
+
+.kpi-card::before {
+  border-radius: 16px 16px 0 0; /* Match card radius at top */
+}
+
+/* Currency symbol styling */
+.kpi-card .theme-text-secondary {
+  opacity: 0.7; /* Make currency symbols lighter */
+}
+
+/* Enhanced Loading Skeleton Animations */
+@keyframes skeleton-shimmer {
+  0% {
+    opacity: 0.7;
+    transform: translateX(-100%);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes skeleton-highlight {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden !important;
+  animation: skeleton-shimmer 2s ease-in-out infinite;
+  /* Ensure containment */
+  contain: layout style paint;
+}
+
+.skeleton-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(245, 158, 11, 0.25) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: skeleton-highlight 3s ease-in-out infinite;
+  /* Ensure pseudo-element doesn't overflow */
+  pointer-events: none;
+  z-index: 1;
+}
+
+.skeleton-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.skeleton-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.skeleton-delay-3 {
+  animation-delay: 0.3s;
+}
+
+.skeleton-delay-4 {
+  animation-delay: 0.4s;
+}
+
+.skeleton-highlight {
+  animation: skeleton-highlight 2s ease-in-out infinite;
+}
+
+/* Learn carousel: allow KPI cards to size to their content instead of fixed height */
+.learn-cards-carousel .kpi-card {
+  height: auto;
+}
+
+/* Revenue and Expenses analytics: serif value styling without changing layout/colors */
+.revenue-key-metrics .metric-card .metric-value,
+.expenses-key-metrics .metric-card .metric-value {
+  font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  font-variant-numeric: lining-nums tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+.revenue-key-metrics .metric-card,
+.expenses-key-metrics .metric-card {
+  position: relative;
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-card-border);
+  border-radius: 16px;
+}
+
+.revenue-key-metrics .metric-card:hover,
+.expenses-key-metrics .metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.12);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+/* Subtle top accent on hover for parity */
+.revenue-key-metrics .metric-card::before,
+.expenses-key-metrics .metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  transition: background var(--transition-normal);
+}
+
+.revenue-key-metrics .metric-card:hover::before,
+.expenses-key-metrics .metric-card:hover::before {
+  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.25), transparent);
+}
+
+/* ===============================================
+   MOBILE BOTTOM NAVIGATION BAR
+   =============================================== */
+
+.bottom-nav-bar {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  /* Add padding to content only when bottom nav is present */
+  body:has(.bottom-nav-bar) {
+    padding-bottom: 80px;
+  }
+
+  .bottom-nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    background: rgba(var(--theme-bg-rgb), 0.85);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--theme-card-border);
+    padding: 0 24px;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  .bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 12px;
+    color: var(--theme-text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .bottom-nav-item span {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .bottom-nav-item.active {
+    color: #f59e0b;
+  }
+
+  .bottom-nav-item:active {
+    opacity: 0.7;
+  }
+
+  /* Center chat button - large, centered in bar, no border */
+  .bottom-nav-center {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+  }
+
+  .bottom-nav-center:active {
+    transform: scale(0.95);
+  }
+
+  .bottom-nav-center.active {
+    opacity: 0.8;
+  }
+
+  /* More menu backdrop */
+  .bottom-nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 51;
+  }
+
+  /* More menu popup */
+  .bottom-nav-more-menu {
+    position: fixed;
+    bottom: 72px;
+    left: 12px;
+    right: 12px;
+    z-index: 52;
+    background: rgba(var(--theme-bg-rgb), 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--theme-card-border);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .bottom-nav-more-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--theme-text-primary);
+  }
+
+  .bottom-nav-more-close {
+    background: none;
+    border: none;
+    color: var(--theme-text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+  }
+
+  .bottom-nav-more-close:hover {
+    background: rgba(245, 158, 11, 0.1);
+  }
+
+  .bottom-nav-more-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .bottom-nav-more-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 8px;
+    color: var(--theme-text-secondary);
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all var(--transition-fast);
+  }
+
+  .bottom-nav-more-item span {
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .bottom-nav-more-item:hover,
+  .bottom-nav-more-item:active {
+    background: rgba(245, 158, 11, 0.1);
+  }
+
+  .bottom-nav-more-item.active {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.1);
+  }
+
+  /* Chat panel mobile styling */
+  .chat-panel {
+    border: 1px solid rgba(245, 158, 11, 0.15);
+    background: var(--theme-bg) !important;
+    bottom: 72px !important;
+  }
+
+  /* Minimal theme - solid background */
+  html.theme-dark .bottom-nav-bar {
+    background: var(--theme-bg);
+  }
+
+  html.theme-dark .bottom-nav-more-menu {
+    background: var(--theme-bg);
+  }
+
+  html.theme-dark .chat-panel {
+    background: var(--theme-bg) !important;
+  }
+}
+
+/* Tablet view - same styles */
+@media (min-width: 768px) and (max-width: 1024px) {
+  html.theme-dark .bottom-nav-bar {
+    background: var(--theme-bg);
+  }
+
+  html.theme-dark .bottom-nav-more-menu {
+    background: var(--theme-bg);
+  }
+
+  html.theme-dark .chat-panel {
+    background: var(--theme-bg) !important;
+  }
+}
+
+/* ===============================================
+   REDUCED MOTION SUPPORT
+   For users who prefer reduced motion (accessibility)
+   =============================================== */
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-topbar,
+  .dashboard-sidebar,
+  .dashboard-chat,
+  .chat-panel {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transition: none !important;
+  }
+
+  .dashboard-sidebar-item,
+  .dashboard-sidebar-child {
+    transition: none !important;
+  }
+}
+
+/* ===============================================
+   MODERN DASHBOARD REDESIGN - v2
+   Refined editorial aesthetic with generous whitespace
+   =============================================== */
+
+/* Dashboard title - clean typography */
+.dashboard-title {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* Fade in animation */
+@keyframes dashboard-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: dashboard-fade-in 0.5s ease-out forwards;
+}
+
+/* Staggered card animations */
+.connection-card {
+  animation: dashboard-fade-in 0.4s ease-out forwards;
+  animation-fill-mode: both;
+}
+
+/* Dashboard welcome state */
+.dashboard-welcome {
+  max-width: 1200px;
+}
+
+/* Dashboard connected state */
+.dashboard-connected {
+  max-width: 1400px;
+}
+
+/* Loading state refinements */
+.dashboard-loading-state {
+  animation: dashboard-fade-in 0.3s ease-out forwards;
+}
+
+/* Connection card hover effects */
+.connection-card {
+  will-change: transform, box-shadow;
+}
+
+.connection-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* Metric tile hover */
+.metric-tile {
+  will-change: background-color, border-color;
+}
+
+/* Add integration button - minimal hover state */
+.add-integration-button {
+  will-change: border-color, background-color;
+}
+
+/* Cross integration summary section spacing */
+.cross-integration-summary {
+  margin-bottom: 0;
+}
+
+/* ─── Metric Cards — theme-responsive ─── */
+
+/* Card background & border */
+.metric-card-bg {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+html.theme-light .metric-card-bg {
+  background: rgba(0, 0, 0, 0.015);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Card divider */
+.metric-card-divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+html.theme-light .metric-card-divider {
+  border-top-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Icon container */
+.metric-icon-bg {
+  background-color: transparent;
+}
+
+html.theme-light .metric-icon-bg {
+  background-color: transparent;
+}
+
+/* Icon color */
+.metric-icon-color {
+  color: #f59e0b;
+}
+
+html.theme-light .metric-icon-color {
+  color: #cf6900;
+}
+
+/* Proportion bar track */
+.proportion-bar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+html.theme-light .proportion-bar-track {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Section heading divider line */
+.section-divider-line {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.06), transparent);
+}
+
+html.theme-light .section-divider-line {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent);
+}
+
+/* Single-provider prompt add button */
+.prompt-add-btn {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.prompt-add-btn:hover {
+  border-color: rgba(245, 158, 11, 0.5);
+  background-color: rgba(245, 158, 11, 0.05);
+}
+
+html.theme-light .prompt-add-btn {
+  border-color: rgba(207, 105, 0, 0.3);
+}
+
+html.theme-light .prompt-add-btn:hover {
+  border-color: rgba(207, 105, 0, 0.5);
+  background-color: rgba(207, 105, 0, 0.05);
+}
+
+/* Entity chips — light mode */
+html.theme-light .entity-chip {
+  border-color: rgba(0, 0, 0, 0.06);
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+html.theme-light .entity-chip.border-transparent {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+/* Compare toggle switch — light mode orange */
+html.theme-light .compare-toggle span.text-amber-500 {
+  color: #cf6900;
+}
+
+html.theme-light .compare-toggle .compare-switch[aria-checked='true'] {
+  background-color: rgba(207, 105, 0, 0.25);
+}
+
+html.theme-light .compare-toggle .compare-switch[aria-checked='true'] span {
+  background-color: #cf6900;
+}
+
+/* Compare toggle switch — dark mode visibility */
+html.theme-dark .compare-switch:not([aria-checked='true']),
+html.theme-darkmatter .compare-switch:not([aria-checked='true']) {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+html.theme-dark .compare-switch:not([aria-checked='true']) span,
+html.theme-darkmatter .compare-switch:not([aria-checked='true']) span {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Light mode: primary picker button */
+html.theme-light .primary-picker-btn {
+  border-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+html.theme-light .primary-picker-btn:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Light mode: picker dropdown header border */
+html.theme-light .primary-picker-dropdown .border-b {
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Light mode: control bar divider */
+html.theme-light .control-divider {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Financial snapshot - refined spacing */
+.financial-snapshot {
+  padding-top: 0.25rem;
+}
+
+/* Light theme adjustments for new dashboard */
+html.theme-light .dashboard-welcome,
+html.theme-light .dashboard-connected {
+  /* Adjust borders for light mode */
+}
+
+html.theme-light .connection-card {
+  border-color: rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+html.theme-light .connection-card:hover {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+html.theme-light .metric-tile {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.04);
+}
+
+html.theme-light .metric-tile:hover {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+html.theme-light .add-integration-button {
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+html.theme-light .add-integration-button:hover {
+  border-color: rgba(207, 105, 0, 0.4);
+  background: rgba(207, 105, 0, 0.03);
+}
+
+/* Light mode: swap amber/yellow to landing-page orange (#CF6900) */
+html.theme-light .add-integration-btn {
+  border-color: rgba(207, 105, 0, 0.2);
+  background-color: rgba(207, 105, 0, 0.06);
+}
+
+html.theme-light .add-integration-btn:hover {
+  border-color: rgba(207, 105, 0, 0.4);
+  background-color: rgba(207, 105, 0, 0.12);
+}
+
+html.theme-light .add-integration-btn svg,
+html.theme-light .add-integration-btn span {
+  color: rgba(207, 105, 0, 0.8);
+}
+
+html.theme-light .add-integration-btn:hover svg,
+html.theme-light .add-integration-btn:hover span {
+  color: #cf6900;
+}
+
+html.theme-light .add-integration-btn .border-dashed {
+  border-color: rgba(207, 105, 0, 0.25);
+}
+
+html.theme-light .add-integration-btn:hover .border-dashed {
+  border-color: rgba(207, 105, 0, 0.5);
+  background-color: rgba(207, 105, 0, 0.1);
+}
+
+/* Separator line gradient - light theme */
+html.theme-light .bg-gradient-to-r.from-white\/\[0\.06\] {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.06), transparent);
+}
+
+/* Provider badge animations */
+.connection-card .animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ─── Unlock section ─── */
+.unlock-card {
+  animation: unlock-fade-up 0.6s ease-out both;
+}
+
+.unlock-card:hover .unlock-title-hover {
+  color: #f59e0b;
+}
+
+html.theme-light .unlock-card:hover .unlock-title-hover {
+  color: #cf6900;
+}
+
+@keyframes unlock-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Unlock grid dividers — all breakpoints */
+.unlock-grid > .unlock-card {
+  --unlock-border: rgba(255, 255, 255, 0.08);
+  border: none;
+  position: relative;
+}
+
+html.theme-light .unlock-grid > .unlock-card {
+  --unlock-border: #d6d3d1;
+}
+
+/* 1-column: horizontal divider between items (full width) */
+.unlock-grid > .unlock-card:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--unlock-border);
+}
+
+/* 2-column */
+@container (min-width: 36rem) {
+  .unlock-grid > .unlock-card:not(:last-child)::before {
+    display: none;
+  }
+  /* Top row gets horizontal line (full width) */
+  .unlock-grid > .unlock-card:nth-child(-n + 2)::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--unlock-border);
+  }
+  /* Left column gets vertical line (shorter) */
+  .unlock-grid > .unlock-card:nth-child(odd)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20px;
+    bottom: 20px;
+    width: 1px;
+    background: var(--unlock-border);
+  }
+}
+
+/* 4-column */
+@container (min-width: 56rem) {
+  .unlock-grid > .unlock-card:not(:last-child)::before,
+  .unlock-grid > .unlock-card:nth-child(-n + 2)::before {
+    display: none;
+  }
+  .unlock-grid > .unlock-card:nth-child(odd)::after {
+    display: none;
+  }
+  /* First 3 get vertical line (shorter) */
+  .unlock-grid > .unlock-card:nth-child(-n + 3)::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 20px;
+    bottom: 20px;
+    width: 1px;
+    background: var(--unlock-border);
+  }
+}
+
+/* Quick access nav items */
+.connection-card nav .group\/link:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+html.theme-light .connection-card nav .group\/link:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Darkmatter theme adjustments */
+html.theme-darkmatter .connection-card {
+  border-color: rgba(212, 163, 0, 0.1);
+  background: rgba(26, 26, 26, 0.4);
+}
+
+html.theme-darkmatter .connection-card:hover {
+  background: rgba(26, 26, 26, 0.6);
+  border-color: rgba(212, 163, 0, 0.15);
+}
+
+html.theme-darkmatter .metric-tile {
+  background: rgba(26, 26, 26, 0.3);
+  border-color: rgba(212, 163, 0, 0.08);
+}
+
+html.theme-darkmatter .add-integration-button {
+  border-color: rgba(212, 163, 0, 0.15);
+}
+
+html.theme-darkmatter .add-integration-button:hover {
+  border-color: rgba(212, 163, 0, 0.3);
+  background: rgba(212, 163, 0, 0.05);
+}
+
+/* Integration modal */
+.integration-modal {
+  backdrop-filter: blur(24px);
+  box-shadow:
+    0 0 0 1px rgba(245, 158, 11, 0.08),
+    0 24px 80px rgba(0, 0, 0, 0.5),
+    0 0 120px rgba(245, 158, 11, 0.04);
+}
+
+html.theme-light .integration-modal {
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 24px 80px rgba(0, 0, 0, 0.12);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL LIGHT-MODE: Amber (#f59e0b) → Landing Orange (#CF6900)
+   Catches ALL Tailwind amber-500 utilities inside the dashboard.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Text color */
+html.theme-light .text-amber-500,
+html.theme-light .text-amber-500\/70,
+html.theme-light .text-amber-500\/80,
+html.theme-light .group:hover .group-hover\:text-amber-500 {
+  color: #cf6900 !important;
+}
+
+/* Background color (solid) */
+html.theme-light .bg-amber-500 {
+  background-color: #cf6900 !important;
+}
+
+/* Background color (alpha variants) */
+html.theme-light .bg-amber-500\/10,
+html.theme-light .bg-amber-500\/15,
+html.theme-light .group:hover .group-hover\:bg-amber-500\/10,
+html.theme-light .group:hover .group-hover\:bg-amber-500\/15 {
+  background-color: rgba(207, 105, 0, 0.1) !important;
+}
+
+html.theme-light .bg-amber-500\/25 {
+  background-color: rgba(207, 105, 0, 0.25) !important;
+}
+
+html.theme-light .bg-amber-500\/5,
+html.theme-light .bg-amber-500\/\[0\.02\],
+html.theme-light .bg-amber-500\/\[0\.03\] {
+  background-color: rgba(207, 105, 0, 0.04) !important;
+}
+
+html.theme-light .bg-amber-500\/\[0\.06\] {
+  background-color: rgba(207, 105, 0, 0.06) !important;
+}
+
+html.theme-light .bg-amber-500\/\[0\.12\],
+html.theme-light .hover\:bg-amber-500\/\[0\.12\]:hover {
+  background-color: rgba(207, 105, 0, 0.12) !important;
+}
+
+/* Border color */
+html.theme-light .border-amber-500\/10,
+html.theme-light .border-amber-500\/15,
+html.theme-light .border-amber-500\/20 {
+  border-color: rgba(207, 105, 0, 0.2) !important;
+}
+
+html.theme-light .border-amber-500\/25,
+html.theme-light .border-amber-500\/30 {
+  border-color: rgba(207, 105, 0, 0.3) !important;
+}
+
+html.theme-light .border-amber-500\/40,
+html.theme-light .border-amber-500\/50,
+html.theme-light .hover\:border-amber-500\/40:hover,
+html.theme-light .hover\:border-amber-500\/50:hover,
+html.theme-light .group:hover .group-hover\:border-amber-500\/50 {
+  border-color: rgba(207, 105, 0, 0.5) !important;
+}
+
+html.theme-light .hover\:border-amber-500\/30:hover {
+  border-color: rgba(207, 105, 0, 0.3) !important;
+}
+
+/* Hover backgrounds */
+html.theme-light .hover\:bg-amber-500\/\[0\.02\]:hover,
+html.theme-light .hover\:bg-amber-500\/\[0\.03\]:hover {
+  background-color: rgba(207, 105, 0, 0.04) !important;
+}
+
+html.theme-light .hover\:bg-amber-500\/5:hover {
+  background-color: rgba(207, 105, 0, 0.05) !important;
+}

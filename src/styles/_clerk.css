@@ -1,0 +1,15 @@
+/* ===============================================
+   CLERK CSS OVERRIDES
+   =============================================== */
+
+/* Hide Clerk's "Continue with" text below social buttons */
+.cl-internal-1txvegf>div:nth-child(2),
+.cl-internal-4x6jej>div:nth-child(2),
+.cl-internal-1c7up6r>div:nth-child(2){
+  display: none;
+}
+
+/* Hide the entire navbar inside the UserProfile component */
+.cl-userProfile-root .cl-navbar {
+  display:none;
+}

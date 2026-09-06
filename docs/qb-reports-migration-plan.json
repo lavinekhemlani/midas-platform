@@ -1,0 +1,551 @@
+{
+  "migration_analysis": {
+    "report_types": {
+      "profit_loss": {
+        "old_route": "/home/proud/code/midas/midas-nextjs/src/app/api/reports/profit-loss/route.ts",
+        "new_route": "/home/proud/code/midas/midas-nextjs/src/app/api/quickbooks/reports/profit-loss/route.ts",
+
+        "features_in_old_not_in_new": {
+          "advanced_calculations": {
+            "description": "Comprehensive KPI calculations with financial ratios",
+            "items": [
+              "profitMargin calculation (calculateProfitMargin)",
+              "expenseRatio calculation (calculateExpenseRatio)",
+              "grossMargin calculation (calculateGrossMargin)",
+              "operatingMargin calculation (calculateOperatingMargin)",
+              "EBITDA components extraction (extractEBITDAComponents)",
+              "Burn rate calculations (burnRate, grossBurnRate, monthsInPeriod)",
+              "Cash balance integration (getCashAndEquivalents)"
+            ]
+          },
+          "data_enrichment": {
+            "description": "Additional data processing and categorization",
+            "items": [
+              "Revenue by category with contra-revenue detection",
+              "Other income categorization",
+              "Expense breakdown by section (COGS, Operating, Other)",
+              "True total expenses calculation (COGS + Operating + Other)",
+              "Percentage calculations for all categories"
+            ]
+          },
+          "insights_generation": {
+            "description": "AI-generated insights and detailed statements",
+            "items": [
+              "generatePnLInsights (positive and concerns)",
+              "generatePnLDetailedStatement (variance analysis)",
+              "Historical comparison with previous period"
+            ]
+          },
+          "error_handling": {
+            "description": "Sophisticated error handling and retry logic",
+            "items": [
+              "Rate limit retry with exponential backoff (withRetry)",
+              "Date validation (invalid dates, range checks, max 5 years)",
+              "Comprehensive error messages with suggestions",
+              "Retry-After header for 429 responses"
+            ]
+          },
+          "performance_tracking": {
+            "description": "Performance monitoring and reporting",
+            "items": [
+              "createReportTracker for performance metrics",
+              "Timing measurements (timings object)",
+              "Data quality metadata",
+              "Query time tracking"
+            ]
+          },
+          "metadata_caching": {
+            "description": "Organization metadata caching to reduce API calls",
+            "items": [
+              "getProviderCompanyMetadata (check stored metadata)",
+              "updateProviderCompanyMetadata (store for future use)",
+              "Currency and company name caching"
+            ]
+          }
+        },
+
+        "features_in_new": {
+          "description": "Clean, minimal implementation using transformer pattern",
+          "items": [
+            "Direct QuickBooks API call via QuickBooksClient.request",
+            "transformProfitAndLoss from @/quickbooks/reports",
+            "Simple error handling with auth checks",
+            "Normalized data structure from transformer"
+          ]
+        },
+
+        "available_transformers": {
+          "location": "/home/proud/code/midas/midas-nextjs/src/quickbooks/reports/transformers.ts",
+          "functions": [
+            "transformProfitAndLoss - Returns: income, COGS, expenses, otherIncome, otherExpenses sections with lines/totals",
+            "processSection - Recursive section processing with levels",
+            "extractColumnHeaders - Column header extraction",
+            "parseAmount - String to number conversion"
+          ],
+          "normalized_structure": {
+            "income": { "lines": "array", "total": "number" },
+            "costOfGoodsSold": { "lines": "array", "total": "number" },
+            "grossProfit": "number",
+            "expenses": { "lines": "array", "total": "number" },
+            "otherIncome": { "lines": "array", "total": "number" },
+            "otherExpenses": { "lines": "array", "total": "number" },
+            "netOperatingIncome": "number",
+            "netIncome": "number"
+          }
+        },
+
+        "frontend_expectations": {
+          "hooks": [
+            "useProfitLoss(startDate, endDate)",
+            "useProfitLossData(options)",
+            "usePnLMonthlyTrend(startDate, endDate)"
+          ],
+          "expected_structure": {
+            "reportType": "profit_loss",
+            "organizationId": "string",
+            "fromDate": "YYYY-MM-DD",
+            "toDate": "YYYY-MM-DD",
+            "currency": "string",
+            "data": {
+              "kpis": {
+                "totalRevenue": "number",
+                "totalExpenses": "number (COGS + Operating + Other)",
+                "netIncome": "number",
+                "profitMargin": "percentage",
+                "expenseRatio": "percentage",
+                "grossProfit": "number",
+                "costOfGoodsSold": "number",
+                "otherExpenses": "number",
+                "otherIncome": "number",
+                "operatingExpenses": "number",
+                "grossMargin": "percentage",
+                "operatingMargin": "percentage",
+                "ebitda": "number",
+                "interestExpense": "number",
+                "taxExpense": "number",
+                "depreciationAmortization": "number",
+                "burnRate": "number",
+                "grossBurnRate": "number",
+                "monthsInPeriod": "number",
+                "cashBalance": "number"
+              },
+              "revenueByCategory": "array of {name, value, isContraRevenue, percentage}",
+              "otherIncomeByCategory": "array of {name, value, section, percentage}",
+              "expenseCategories": "array of {name, section, amount, percentage}",
+              "detailedStatement": "array with variance analysis",
+              "insights": "{positive: array, concerns: array}",
+              "metadata": {
+                "queryTime": "number",
+                "timings": "object",
+                "dataCompleteness": "object",
+                "dataQuality": "object"
+              }
+            }
+          }
+        },
+
+        "gap_analysis": {
+          "critical_missing": [
+            "KPI calculations (profit margin, expense ratio, burn rate)",
+            "Revenue/expense categorization with percentages",
+            "EBITDA components",
+            "Insights generation",
+            "Performance tracking",
+            "Error handling with retry logic"
+          ],
+          "data_transformation": [
+            "NEW provides: normalized sections with lines array",
+            "OLD provides: categorized data with percentages and metadata",
+            "OLD calculates: margins, ratios, and derived metrics",
+            "NEW only parses: raw QuickBooks structure"
+          ],
+          "integration_complexity": "HIGH - requires significant calculation layer"
+        }
+      },
+
+      "balance_sheet": {
+        "old_route": "/home/proud/code/midas/midas-nextjs/src/app/api/reports/balance-sheet/route.ts",
+        "new_route": "/home/proud/code/midas/midas-nextjs/src/app/api/quickbooks/reports/balance-sheet/route.ts",
+
+        "features_in_old_not_in_new": {
+          "advanced_calculations": {
+            "description": "Comprehensive ratio and liquidity calculations",
+            "items": [
+              "calculateCurrentRatio",
+              "calculateQuickRatio",
+              "calculateDebtToEquity",
+              "calculateROA (Return on Assets)",
+              "calculateROE (Return on Equity)",
+              "calculateWorkingCapital",
+              "calculateAssetTurnover",
+              "calculateEquityMultiplier",
+              "calculateDebtRatio"
+            ]
+          },
+          "composition_analysis": {
+            "description": "Detailed composition with percentages",
+            "items": [
+              "getAssetComposition (with percentage breakdown)",
+              "getLiabilityBreakdown (with classification)",
+              "getEquityComposition (with percentages)",
+              "Asset classification (current vs fixed vs other)",
+              "Liability classification (current vs long-term)",
+              "Negative value handling (contra accounts)"
+            ]
+          },
+          "detailed_tables": {
+            "description": "Detailed account tables with percentages",
+            "items": [
+              "getDetailedAccountsTable for assets",
+              "getDetailedAccountsTable for liabilities",
+              "getDetailedAccountsTable for equity",
+              "Grouped by account type with subtotals"
+            ]
+          },
+          "current_metrics": {
+            "description": "Current asset/liability calculations from report data",
+            "items": [
+              "calculateCurrentAssetsFromBsData",
+              "calculateCurrentLiabilitiesFromBsData",
+              "calculateCashFromBsData",
+              "calculateInventoryFromBsData",
+              "Multi-currency safe calculations"
+            ]
+          },
+          "rate_limiting": {
+            "description": "Sophisticated throttling for supplementary queries",
+            "items": [
+              "throttledRequests with batch processing",
+              "2 concurrent requests max with delays",
+              "Request deduplication cache",
+              "Error tracking per component"
+            ]
+          }
+        },
+
+        "features_in_new": {
+          "description": "Clean, minimal implementation using transformer",
+          "items": [
+            "Direct QuickBooks API call",
+            "transformBalanceSheet from @/quickbooks/reports",
+            "Simple auth error handling",
+            "Normalized structure"
+          ]
+        },
+
+        "available_transformers": {
+          "functions": [
+            "transformBalanceSheet - Returns: assets (current/fixed/other), liabilities (current/longTerm), equity sections",
+            "findSection - Supports aliases for international standards (GAAP, IFRS, HK PE)",
+            "processSection - Recursive processing with classification"
+          ],
+          "normalized_structure": {
+            "assets": {
+              "current": { "lines": "array", "total": "number" },
+              "fixed": { "lines": "array", "total": "number" },
+              "other": { "lines": "array", "total": "number" },
+              "total": "number"
+            },
+            "liabilities": {
+              "current": { "lines": "array", "total": "number" },
+              "longTerm": { "lines": "array", "total": "number" },
+              "total": "number"
+            },
+            "equity": { "lines": "array", "total": "number" },
+            "totalLiabilitiesAndEquity": "number"
+          }
+        },
+
+        "frontend_expectations": {
+          "hooks": ["useBalanceSheet(asOfDate)", "useBalanceSheetMonthlyTrend(asOfDate)"],
+          "expected_structure": {
+            "reportType": "balance_sheet",
+            "asOfDate": "YYYY-MM-DD",
+            "currency": "string",
+            "data": {
+              "kpis": {
+                "totalAssets": "number",
+                "totalLiabilities": "number",
+                "totalEquity": "number",
+                "workingCapital": "number",
+                "currentAssets": "number",
+                "currentLiabilities": "number",
+                "inventory": "number",
+                "currentRatio": "number",
+                "debtToEquity": "number",
+                "quickRatio": "number",
+                "roa": "percentage"
+              },
+              "assetComposition": "array of {name, value, displayValue, absValue, percentage, isNegative, color}",
+              "liabilityBreakdown": "array of {name, value, displayValue, absValue, percentage, isNegative, type, color}",
+              "equityComposition": "array of {name, value, displayValue, absValue, percentage, isNegative, color}",
+              "assetsTable": "array of {item, amount, percentage}",
+              "liabilitiesTable": "array of {item, amount, percentage}",
+              "equityTable": "array of {item, amount, percentage}",
+              "ratios": {
+                "assetTurnover": "number",
+                "equityMultiplier": "number",
+                "returnOnEquity": "percentage",
+                "debtRatio": "number",
+                "revenue": "number",
+                "netIncome": "number",
+                "totalDebt": "number"
+              },
+              "metadata": {
+                "dataQuality": "object with errors/warnings"
+              }
+            }
+          }
+        },
+
+        "gap_analysis": {
+          "critical_missing": [
+            "All ratio calculations (current, quick, debt-to-equity, ROA, ROE)",
+            "Composition arrays with percentages and colors",
+            "Detailed account tables",
+            "Current assets/liabilities classification",
+            "Working capital calculation",
+            "P&L integration for ROA/ROE"
+          ],
+          "integration_complexity": "VERY HIGH - requires P&L data and extensive calculations"
+        }
+      },
+
+      "cash_flow": {
+        "old_route": "/home/proud/code/midas/midas-nextjs/src/app/api/reports/cash-flow/route.ts",
+        "new_route": "/home/proud/code/midas/midas-nextjs/src/app/api/quickbooks/reports/cash-flow/route.ts",
+
+        "features_in_old_not_in_new": {
+          "advanced_metrics": {
+            "description": "Comprehensive cash flow metrics",
+            "items": [
+              "calculateCashMetrics (burn rate, runway, days cash)",
+              "Free cash flow calculation",
+              "Cash conversion cycle",
+              "Operating cash flow margin",
+              "Cash flow coverage ratio"
+            ]
+          },
+          "activity_details": {
+            "description": "Detailed activity breakdowns",
+            "items": [
+              "getOperatingActivities with AR/AP/inventory changes",
+              "getInvestingActivities with equipment purchases",
+              "getFinancingActivities with loans/equity",
+              "Depreciation/amortization extraction",
+              "Working capital change calculations"
+            ]
+          },
+          "days_metrics": {
+            "description": "Days calculations for working capital",
+            "items": [
+              "calculateDaysReceivable",
+              "calculateDaysPayable",
+              "calculateDaysInventory",
+              "Used in cash conversion cycle"
+            ]
+          },
+          "waterfall_chart": {
+            "description": "Formatted waterfall data",
+            "items": [
+              "Beginning/ending cash calculations",
+              "Operating/investing/financing activities",
+              "Horizontal bar chart format",
+              "Name/value pairs for visualization"
+            ]
+          },
+          "integration": {
+            "description": "Integration with other reports",
+            "items": [
+              "P&L data for net income and expenses",
+              "Balance sheet data for current liabilities",
+              "True total expenses (COGS + Operating + Other)",
+              "Monthly expenses calculation"
+            ]
+          }
+        },
+
+        "features_in_new": {
+          "description": "Clean transformer implementation",
+          "items": [
+            "Direct API call",
+            "transformCashFlow from @/quickbooks/reports",
+            "Basic auth handling",
+            "Normalized structure"
+          ]
+        },
+
+        "available_transformers": {
+          "functions": [
+            "transformCashFlow - Returns: operating/investing/financing activities with lines/totals",
+            "findSection - Supports activity section aliases",
+            "Beginning/ending cash extraction"
+          ],
+          "normalized_structure": {
+            "operatingActivities": { "lines": "array", "total": "number" },
+            "investingActivities": { "lines": "array", "total": "number" },
+            "financingActivities": { "lines": "array", "total": "number" },
+            "netCashChange": "number",
+            "beginningCash": "number",
+            "endingCash": "number"
+          }
+        },
+
+        "frontend_expectations": {
+          "hooks": [
+            "useCashFlow(startDate, endDate)",
+            "useCashFlowMonthlyTrend(startDate, endDate)"
+          ],
+          "expected_structure": {
+            "reportType": "cash_flow",
+            "fromDate": "YYYY-MM-DD",
+            "toDate": "YYYY-MM-DD",
+            "currency": "string",
+            "data": {
+              "kpis": {
+                "operatingCashFlow": "number",
+                "investingCashFlow": "number",
+                "financingCashFlow": "number",
+                "netCashFlow": "number",
+                "cashBeginning": "number",
+                "cashEnding": "number"
+              },
+              "cashMetrics": {
+                "burn_rate": "number",
+                "runway_months": "number",
+                "days_cash": "number",
+                "operating_cash_flow_ratio": "number",
+                "free_cash_flow": "number",
+                "cash_conversion_cycle": "number",
+                "operating_cash_flow_margin": "percentage",
+                "cash_flow_coverage_ratio": "number"
+              },
+              "operatingActivities": "array of {item, amount}",
+              "investingActivities": "array of {item, amount}",
+              "financingActivities": "array of {item, amount}",
+              "waterfallChart": "array of {name, value}",
+              "errors": "array of error messages",
+              "metadata": {
+                "dataQuality": "object"
+              }
+            }
+          }
+        },
+
+        "gap_analysis": {
+          "critical_missing": [
+            "All cash metrics (burn rate, runway, free cash flow, etc.)",
+            "Detailed activity breakdowns with working capital changes",
+            "Days metrics calculations",
+            "Waterfall chart formatting",
+            "P&L and Balance Sheet integration",
+            "True total expenses calculation"
+          ],
+          "integration_complexity": "VERY HIGH - requires P&L, Balance Sheet, and Account queries"
+        }
+      }
+    },
+
+    "recommendation": {
+      "approach": "ENHANCE NEW - Build calculation layer on top of new transformer-based routes",
+      "rationale": [
+        "New routes have cleaner architecture with separation of concerns",
+        "Transformers provide consistent normalized structure",
+        "Old routes have too much logic coupling",
+        "Can progressively migrate by adding calculation wrappers",
+        "Frontend already expects old route structure"
+      ],
+      "migration_strategy": "PHASED APPROACH",
+      "phases": [
+        {
+          "phase": 1,
+          "name": "Create Calculation Layer",
+          "description": "Build wrapper functions that add calculations to transformer output",
+          "location": "/src/quickbooks/reports/calculations.ts",
+          "functions": [
+            "enrichProfitAndLoss(normalized) => full P&L with KPIs",
+            "enrichBalanceSheet(normalized) => full BS with ratios",
+            "enrichCashFlow(normalized) => full CF with metrics"
+          ]
+        },
+        {
+          "phase": 2,
+          "name": "Update New Routes",
+          "description": "Modify new routes to use enrichment functions",
+          "changes": [
+            "Import enrichment functions",
+            "Call transformer, then enrichment",
+            "Return structure matching old route",
+            "Add error handling and retry logic",
+            "Add performance tracking"
+          ]
+        },
+        {
+          "phase": 3,
+          "name": "Add Frontend Switch",
+          "description": "Add feature flag to use new or old routes",
+          "implementation": [
+            "Add environment variable USE_NEW_REPORTS=true/false",
+            "Update hooks to check flag and use appropriate endpoint",
+            "Test both paths in parallel",
+            "Monitor performance and errors"
+          ]
+        },
+        {
+          "phase": 4,
+          "name": "Gradual Rollout",
+          "description": "Enable new routes for users gradually",
+          "steps": [
+            "Enable for internal testing",
+            "Enable for 10% of users",
+            "Monitor error rates and performance",
+            "Enable for 50%, then 100%",
+            "Remove old routes after 2 weeks"
+          ]
+        }
+      ]
+    },
+
+    "code_locations": {
+      "helpers_to_reuse": [
+        "/src/lib/utils/financial/reportCalculations.ts - All calculation functions",
+        "/src/lib/providers/quickbooks/utils/reportHelpers.ts - Extract EBITDA, validation, insights",
+        "/src/lib/providers/quickbooks/utils/accounts.ts - getCashAndEquivalents, getAccountsReceivable, etc.",
+        "/src/lib/monitoring/reportPerformance.ts - Performance tracking",
+        "/src/lib/providers/database.ts - Metadata caching"
+      ],
+      "transformers_available": [
+        "/src/quickbooks/reports/transformers.ts - transformProfitAndLoss, transformBalanceSheet, transformCashFlow",
+        "/src/quickbooks/reports/fetcher.ts - ReportFetcher class",
+        "/src/quickbooks/reports/index.ts - Exports"
+      ],
+      "frontend_consumers": [
+        "/src/hooks/useReportData.ts - All report hooks",
+        "/src/contexts/ReportsProvider.tsx - Global report state"
+      ]
+    },
+
+    "risk_assessment": {
+      "high_risk_areas": [
+        "Balance Sheet ROA/ROE calculations require P&L integration",
+        "Cash Flow metrics require both P&L and Balance Sheet data",
+        "Multi-currency handling in current assets/liabilities",
+        "Rate limiting with throttled requests",
+        "Contra-revenue account detection"
+      ],
+      "testing_requirements": [
+        "Unit tests for all calculation functions",
+        "Integration tests for multi-report dependencies",
+        "E2E tests comparing old vs new output",
+        "Load testing for rate limit handling",
+        "Multi-currency test cases"
+      ],
+      "rollback_plan": [
+        "Keep old routes active during migration",
+        "Feature flag for instant rollback",
+        "Monitor error rates with alerts",
+        "Automated rollback if error rate > 5%"
+      ]
+    }
+  }
+}

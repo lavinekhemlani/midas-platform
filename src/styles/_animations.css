@@ -1,0 +1,416 @@
+/* ===============================================
+   ANIMATIONS & KEYFRAMES
+   =============================================== */
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes fade-in-luxury {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slide-in-elegant {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shake-horizontal {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-4px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes shimmer-glow {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes shell-draw {
+  0% {
+    stroke-dashoffset: 180;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  85% {
+    opacity: 0.6;
+  }
+  100% {
+    stroke-dashoffset: -180;
+    opacity: 0;
+  }
+}
+
+@keyframes shell-float {
+  from {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer-slow {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+}
+
+.animate-shimmer-slow {
+  animation: shimmer-slow 2.5s infinite;
+}
+
+.animate-shimmer-fast {
+  animation: shimmer 1s infinite;
+}
+
+@keyframes slide-in-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slide-in-compact {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slide-out-to-right {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px) scale(0.95);
+  }
+}
+
+@keyframes slide-out-compact {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(30px) scale(0.9);
+  }
+}
+
+@keyframes luxury-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.luxury-fade-in {
+  animation: fade-in-luxury var(--fade-in-duration) cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: both;
+}
+
+.luxury-slide-in {
+  animation: slide-in-elegant var(--slide-in-duration) cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: both;
+}
+
+.bounce-in {
+  animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.slide-up {
+  animation: slide-up 0.5s ease-out;
+}
+
+.luxury-loading {
+  animation: luxury-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+html.theme-transitioning .animated-shell-container,
+html.theme-transitioning .animated-shell-container * {
+  transition: none !important;
+}
+
+@keyframes shake-horizontal {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-4px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+.animate-shake {
+  animation: shake-horizontal 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+/* Shimmer Animation for Beta Message */
+.animate-shimmer {
+  animation: shimmer-glow 3s linear infinite;
+}
+
+@keyframes subtle-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.5));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.8));
+    transform: scale(1.05);
+  }
+}
+
+/* This class will be applied on hover of the parent group */
+.group:hover .icon-shimmer {
+  animation: subtle-glow 1.8s ease-in-out infinite;
+}
+
+@keyframes dialog-fade-out-southeast {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(25vw, 25vh) scale(0.3);
+  }
+}
+
+.animate-dialog-out-southeast {
+  animation: dialog-fade-out-southeast 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes creative-button-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 8px rgba(251, 191, 36, 0.3),
+      0 0 12px rgba(251, 191, 36, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 16px rgba(251, 191, 36, 0.5),
+      0 0 24px rgba(251, 191, 36, 0.3);
+  }
+}
+
+.creative-button-glow-animation {
+  animation: creative-button-glow 2.5s ease-in-out infinite;
+}
+
+/* Animation delay utilities */
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-600 {
+  animation-delay: 600ms;
+}
+
+.animation-delay-800 {
+  animation-delay: 800ms;
+}
+
+/* ===============================================
+   MARQUEE ANIMATIONS
+   =============================================== */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--duration) infinite linear;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical var(--duration) linear infinite;
+}
+
+/* ===============================================
+   SHIMMER LOADING UTILITIES
+   Uses CSS variables for easy color customization
+   =============================================== */
+
+/* Base background colors with different opacities */
+.shimmer-bg-10 {
+  background: rgba(var(--shimmer-base-color), 0.1);
+}
+
+.shimmer-bg-15 {
+  background: rgba(var(--shimmer-base-color), 0.14);
+}
+
+.shimmer-bg-20 {
+  background: rgba(var(--shimmer-base-color), 0.18);
+}
+
+.shimmer-bg-30 {
+  background: rgba(var(--shimmer-base-color), 0.25);
+}
+
+/* Gradient overlays for shimmer effect */
+.shimmer-gradient-light {
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(var(--shimmer-highlight-color), 0.14),
+    transparent
+  );
+}
+
+.shimmer-gradient-medium {
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(var(--shimmer-highlight-color), 0.22),
+    transparent
+  );
+}

@@ -1,0 +1,966 @@
+'use client'
+
+import { useMemo, useState, useEffect, useRef } from 'react'
+import { useBCAccountDetail } from '../../hooks/useBCAccountDetail'
+import { EChartsArea, type AreaSeries } from '@/components/charts/echarts'
+import { formatStatementAmount } from '@/lib/utils/currency'
+import { cn } from '@/lib/utils'
+import { useTheme } from '@/hooks/useTheme'
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  TrendingUp,
+  Loader2,
+  AlertCircle,
+  Banknote,
+  Users,
+  Building2,
+  Package,
+  ChevronLeft,
+  ChevronRight as ChevronRightIcon,
+  X,
+  Search,
+} from 'lucide-react'
+
+const ROWS_PER_PAGE = 20
+
+interface AccountDetailDrawerProps {
+  open: boolean
+  onClose: () => void
+  connectionId: string
+  accountNumber: string | null
+  accountName: string | null
+  category: string | null
+  subCategory: string | null
+  startDate: string
+  endDate: string
+  currency: string
+}
+
+export function AccountDetailDrawer({
+  open,
+  onClose,
+  connectionId,
+  accountNumber,
+  accountName,
+  category,
+  subCategory,
+  startDate,
+  endDate,
+  currency,
+}: AccountDetailDrawerProps) {
+  const { theme } = useTheme()
+  const isLight = theme === 'light'
+
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (open && cardRef.current) {
+      cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }
+  }, [open, accountNumber])
+
+  const [txPage, setTxPage] = useState(0)
+  const [searchQuery, setSearchQuery] = useState('')
+
+  // Reset pagination and search when account changes
+  useEffect(() => {
+    setTxPage(0)
+    setSearchQuery('')
+  }, [accountNumber])
+
+  const { flow, monthlyTrend, recentTransactions, transactionCount, subLedger, isLoading, error } =
+    useBCAccountDetail(
+      open ? connectionId : null,
+      open ? accountNumber : null,
+      startDate,
+      endDate,
+      category || undefined,
+      subCategory || undefined
+    )
+
+  const chartSeries: AreaSeries[] = useMemo(
+    () => [{ key: 'balance', name: 'Balance', color: '#f59e0b' }],
+    []
+  )
+
+  const formatMonth = (val: any) => {
+    const [y, m] = String(val).split('-')
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ]
+    return months[parseInt(m, 10) - 1] || val
+  }
+
+  const subLedgerIcon =
+    subLedger.type === 'bank'
+      ? Banknote
+      : subLedger.type === 'receivables'
+        ? Users
+        : subLedger.type === 'payables'
+          ? Building2
+          : subLedger.type === 'inventory'
+            ? Package
+            : null
+
+  const subLedgerTitle =
+    subLedger.type === 'bank'
+      ? 'Bank Accounts'
+      : subLedger.type === 'receivables'
+        ? 'Top Customers by Balance'
+        : subLedger.type === 'payables'
+          ? 'Top Vendors by Balance'
+          : subLedger.type === 'inventory'
+            ? 'Top Items by Stock Value'
+            : null
+
+  if (!open) return null
+
+  return (
+    <div
+      ref={cardRef}
+      className={cn(
+        'my-3 border border-[var(--theme-card-border)] overflow-hidden scroll-mt-4 bg-[var(--theme-card-bg)]',
+        isLight ? 'shadow-lg shadow-stone-200/50' : 'shadow-lg shadow-black/30'
+      )}
+    >
+      {/* Header */}
+      <div className={cn('px-6 pt-5 pb-4 border-b border-[var(--theme-card-border)]')}>
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span
+                className={cn(
+                  'px-2 py-0.5 rounded text-[10px] font-medium uppercase tracking-wider',
+                  category === 'Assets'
+                    ? isLight
+                      ? 'bg-green-500/10 text-green-600'
+                      : 'bg-green-500/20 text-green-400'
+                    : category === 'Liabilities'
+                      ? isLight
+                        ? 'bg-red-500/10 text-red-600'
+                        : 'bg-red-500/20 text-red-400'
+                      : isLight
+                        ? 'bg-blue-500/10 text-blue-600'
+                        : 'bg-blue-500/20 text-blue-400'
+                )}
+              >
+                {category || 'Account'}
+              </span>
+              {subCategory && (
+                <span
+                  className={cn(
+                    'text-[10px] uppercase tracking-wider',
+                    isLight ? 'text-stone-400' : 'text-stone-500'
+                  )}
+                >
+                  {subCategory}
+                </span>
+              )}
+            </div>
+            <h3 className={cn('text-lg font-semibold', isLight ? 'text-stone-900' : 'text-white')}>
+              {accountName || accountNumber || 'Account Detail'}
+            </h3>
+            <p
+              className={cn(
+                'text-xs font-mono mt-1',
+                isLight ? 'text-stone-500' : 'text-stone-500'
+              )}
+            >
+              Account {accountNumber} &middot; {startDate} to {endDate}
+            </p>
+          </div>
+          <button
+            onClick={onClose}
+            className={cn(
+              'p-1.5 rounded-lg transition-colors shrink-0 mt-1',
+              isLight ? 'hover:bg-stone-100 text-stone-400' : 'hover:bg-white/[0.06] text-stone-500'
+            )}
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="px-6 py-5 space-y-6">
+        {isLoading && (
+          <div className="flex items-center justify-center py-20">
+            <Loader2
+              className={cn('w-6 h-6 animate-spin', isLight ? 'text-stone-400' : 'text-stone-500')}
+            />
+          </div>
+        )}
+
+        {error && !isLoading && (
+          <div className="flex flex-col items-center gap-3 py-16">
+            <AlertCircle className="w-8 h-8 text-yellow-500" />
+            <p className={cn('text-sm', isLight ? 'text-stone-500' : 'text-stone-400')}>
+              Failed to load account detail
+            </p>
+          </div>
+        )}
+
+        {!isLoading && !error && flow && (
+          <>
+            {/* Flow Strip */}
+            <div>
+              <h4
+                className={cn(
+                  'text-[11px] uppercase tracking-wider font-medium mb-3',
+                  isLight ? 'text-stone-400' : 'text-stone-500'
+                )}
+              >
+                Period Activity
+              </h4>
+              <div className="grid grid-cols-4 gap-3">
+                <FlowMetricBox
+                  label="Opening"
+                  value={flow.opening}
+                  currency={currency}
+                  isLight={isLight}
+                />
+                <FlowMetricBox
+                  label="Inflows"
+                  value={flow.inflows}
+                  currency={currency}
+                  isLight={isLight}
+                  icon={<ArrowDownRight className="w-3 h-3 text-green-500" />}
+                  valueColor="text-green-500"
+                />
+                <FlowMetricBox
+                  label="Outflows"
+                  value={flow.outflows}
+                  currency={currency}
+                  isLight={isLight}
+                  icon={<ArrowUpRight className="w-3 h-3 text-red-500" />}
+                  valueColor="text-red-500"
+                />
+                <FlowMetricBox
+                  label="Closing"
+                  value={flow.closing}
+                  currency={currency}
+                  isLight={isLight}
+                  highlight
+                />
+              </div>
+            </div>
+
+            {/* Monthly Trend */}
+            {monthlyTrend.length > 1 && (
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <TrendingUp
+                    className={cn('w-3.5 h-3.5', isLight ? 'text-stone-400' : 'text-stone-500')}
+                  />
+                  <h4
+                    className={cn(
+                      'text-[11px] uppercase tracking-wider font-medium',
+                      isLight ? 'text-stone-400' : 'text-stone-500'
+                    )}
+                  >
+                    Balance Trend
+                  </h4>
+                </div>
+                <div
+                  className={cn(
+                    'rounded-lg border border-[var(--theme-card-border)] p-3',
+                    isLight ? 'bg-[var(--theme-bg)]' : 'bg-white/[0.02]'
+                  )}
+                >
+                  <EChartsArea
+                    data={monthlyTrend}
+                    xKey="month"
+                    series={chartSeries}
+                    height={160}
+                    formatX={formatMonth}
+                    formatY={(v) => formatStatementAmount(v, currency)}
+                    showLegend={false}
+                    gradient
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Transactions with Pagination */}
+            {recentTransactions.length > 0 &&
+              (() => {
+                const q = searchQuery.toLowerCase().trim()
+                const filtered = q
+                  ? recentTransactions.filter(
+                      (tx) =>
+                        (tx.description || '').toLowerCase().includes(q) ||
+                        (tx.documentNumber || '').toLowerCase().includes(q) ||
+                        (tx.documentType || '').toLowerCase().includes(q) ||
+                        (tx.postingDate || '').toLowerCase().includes(q)
+                    )
+                  : recentTransactions
+                const totalPages = Math.ceil(filtered.length / ROWS_PER_PAGE)
+                const pageStart = txPage * ROWS_PER_PAGE
+                const pageEnd = pageStart + ROWS_PER_PAGE
+                const pageRows = filtered.slice(pageStart, pageEnd)
+
+                return (
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4
+                        className={cn(
+                          'text-[11px] uppercase tracking-wider font-medium',
+                          isLight ? 'text-stone-400' : 'text-stone-500'
+                        )}
+                      >
+                        Transactions ({filtered.length}
+                        {searchQuery ? ` of ${recentTransactions.length}` : ''} entries)
+                      </h4>
+                      {totalPages > 1 && (
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={() => setTxPage((p) => Math.max(0, p - 1))}
+                            disabled={txPage === 0}
+                            className={cn(
+                              'p-1 rounded transition-colors disabled:opacity-30',
+                              isLight ? 'hover:bg-stone-100' : 'hover:bg-white/[0.05]'
+                            )}
+                          >
+                            <ChevronLeft className="w-3.5 h-3.5" />
+                          </button>
+                          <span
+                            className={cn(
+                              'text-[11px] font-mono tabular-nums px-1',
+                              isLight ? 'text-stone-500' : 'text-stone-400'
+                            )}
+                          >
+                            {txPage + 1} / {totalPages}
+                          </span>
+                          <button
+                            onClick={() => setTxPage((p) => Math.min(totalPages - 1, p + 1))}
+                            disabled={txPage >= totalPages - 1}
+                            className={cn(
+                              'p-1 rounded transition-colors disabled:opacity-30',
+                              isLight ? 'hover:bg-stone-100' : 'hover:bg-white/[0.05]'
+                            )}
+                          >
+                            <ChevronRightIcon className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                    {/* Search bar */}
+                    <div className="relative mb-3">
+                      <Search
+                        className={cn(
+                          'absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5',
+                          isLight ? 'text-stone-400' : 'text-stone-500'
+                        )}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Search transactions..."
+                        value={searchQuery}
+                        onChange={(e) => {
+                          setSearchQuery(e.target.value)
+                          setTxPage(0)
+                        }}
+                        className={cn(
+                          'w-full pl-8 pr-3 py-1.5 text-xs rounded-md border outline-none transition-colors',
+                          isLight
+                            ? 'bg-white border-stone-200 text-stone-800 placeholder:text-stone-400 focus:border-amber-400'
+                            : 'bg-white/[0.04] border-white/[0.08] text-white placeholder:text-stone-500 focus:border-amber-500/50'
+                        )}
+                      />
+                    </div>
+                    <div
+                      className={cn(
+                        'rounded-lg border border-[var(--theme-card-border)] overflow-hidden'
+                      )}
+                    >
+                      {/* Table header */}
+                      <div
+                        className={cn(
+                          'grid grid-cols-[90px_1fr_80px_80px] gap-2 px-3 py-2 text-[10px] uppercase tracking-wider font-medium border-b border-[var(--theme-card-border)]',
+                          isLight
+                            ? 'bg-[var(--theme-bg)] text-stone-500'
+                            : 'bg-white/[0.02] text-stone-500'
+                        )}
+                      >
+                        <span>Date</span>
+                        <span>Description</span>
+                        <span className="text-right">Debit</span>
+                        <span className="text-right">Credit</span>
+                      </div>
+                      {/* Table body */}
+                      <div>
+                        {pageRows.map((tx, i) => (
+                          <div
+                            key={`${tx.postingDate}-${tx.documentNumber}-${pageStart + i}`}
+                            className={cn(
+                              'grid grid-cols-[90px_1fr_80px_80px] gap-2 px-3 py-1.5 text-[12px] border-b last:border-b-0',
+                              i % 2 === 0
+                                ? isLight
+                                  ? 'bg-white'
+                                  : 'bg-transparent'
+                                : isLight
+                                  ? 'bg-stone-50/60'
+                                  : 'bg-white/[0.01]',
+                              isLight ? 'border-stone-100' : 'border-white/[0.04]'
+                            )}
+                          >
+                            <span
+                              className={cn(
+                                'font-mono text-[11px]',
+                                isLight ? 'text-stone-600' : 'text-stone-400'
+                              )}
+                            >
+                              {tx.postingDate}
+                            </span>
+                            <span
+                              className={cn(
+                                'truncate',
+                                isLight ? 'text-stone-700' : 'text-stone-300'
+                              )}
+                              title={`${tx.documentType} ${tx.documentNumber}: ${tx.description}`}
+                            >
+                              {tx.description || tx.documentNumber || tx.documentType}
+                            </span>
+                            <span
+                              className={cn(
+                                'text-right font-mono tabular-nums',
+                                tx.debitAmount > 0
+                                  ? isLight
+                                    ? 'text-green-600'
+                                    : 'text-green-400'
+                                  : isLight
+                                    ? 'text-stone-300'
+                                    : 'text-stone-600'
+                              )}
+                            >
+                              {tx.debitAmount > 0
+                                ? formatStatementAmount(tx.debitAmount, currency)
+                                : '—'}
+                            </span>
+                            <span
+                              className={cn(
+                                'text-right font-mono tabular-nums',
+                                tx.creditAmount > 0
+                                  ? isLight
+                                    ? 'text-red-600'
+                                    : 'text-red-400'
+                                  : isLight
+                                    ? 'text-stone-300'
+                                    : 'text-stone-600'
+                              )}
+                            >
+                              {tx.creditAmount > 0
+                                ? formatStatementAmount(tx.creditAmount, currency)
+                                : '—'}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                      {/* Page footer with range info */}
+                      {totalPages > 1 && (
+                        <div
+                          className={cn(
+                            'px-3 py-1.5 text-[10px] border-t border-[var(--theme-card-border)]',
+                            isLight
+                              ? 'text-stone-400 bg-[var(--theme-bg)]'
+                              : 'text-stone-500 bg-white/[0.02]'
+                          )}
+                        >
+                          Showing {pageStart + 1}–{Math.min(pageEnd, filtered.length)} of{' '}
+                          {filtered.length}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )
+              })()}
+
+            {/* Sub-Ledger Breakdown */}
+            {subLedger.type && subLedger.data.length > 0 && (
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  {subLedgerIcon &&
+                    (() => {
+                      const Icon = subLedgerIcon
+                      return (
+                        <Icon
+                          className={cn(
+                            'w-3.5 h-3.5',
+                            isLight ? 'text-stone-400' : 'text-stone-500'
+                          )}
+                        />
+                      )
+                    })()}
+                  <h4
+                    className={cn(
+                      'text-[11px] uppercase tracking-wider font-medium',
+                      isLight ? 'text-stone-400' : 'text-stone-500'
+                    )}
+                  >
+                    {subLedgerTitle}
+                  </h4>
+                </div>
+                <div
+                  className={cn(
+                    'rounded-lg border border-[var(--theme-card-border)] overflow-hidden'
+                  )}
+                >
+                  {subLedger.type === 'receivables' || subLedger.type === 'payables' ? (
+                    <SubLedgerAgingTable
+                      entries={subLedger.data}
+                      currency={currency}
+                      isLight={isLight}
+                      type={subLedger.type}
+                    />
+                  ) : subLedger.type === 'inventory' ? (
+                    <SubLedgerInventoryTable
+                      entries={subLedger.data}
+                      currency={currency}
+                      isLight={isLight}
+                    />
+                  ) : subLedger.type === 'bank' ? (
+                    <SubLedgerBankTable entries={subLedger.data} isLight={isLight} />
+                  ) : null}
+                </div>
+              </div>
+            )}
+
+            {/* Empty state for no transactions */}
+            {recentTransactions.length === 0 && (
+              <div
+                className={cn(
+                  'text-center py-10 text-sm',
+                  isLight ? 'text-stone-400' : 'text-stone-500'
+                )}
+              >
+                No transactions found for this period
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ─── Sub-components ──────────────────────────────────────────────────────────
+
+function FlowMetricBox({
+  label,
+  value,
+  currency,
+  isLight,
+  icon,
+  valueColor,
+  highlight,
+}: {
+  label: string
+  value: number
+  currency: string
+  isLight: boolean
+  icon?: React.ReactNode
+  valueColor?: string
+  highlight?: boolean
+}) {
+  return (
+    <div
+      className={cn(
+        'rounded-lg border px-3 py-2.5',
+        highlight
+          ? isLight
+            ? 'border-amber-200 bg-amber-50/50'
+            : 'border-amber-500/20 bg-amber-500/5'
+          : isLight
+            ? 'border-[var(--theme-card-border)] bg-[var(--theme-bg)]'
+            : 'border-[var(--theme-card-border)] bg-white/[0.02]'
+      )}
+    >
+      <div className="flex items-center gap-1 mb-1">
+        {icon}
+        <span
+          className={cn(
+            'text-[10px] uppercase tracking-wider',
+            isLight ? 'text-stone-400' : 'text-stone-500'
+          )}
+        >
+          {label}
+        </span>
+      </div>
+      <div
+        className={cn(
+          'text-[14px] font-mono font-semibold tabular-nums',
+          valueColor || (highlight ? 'text-amber-500' : isLight ? 'text-stone-800' : 'text-white')
+        )}
+      >
+        {formatStatementAmount(value, currency)}
+      </div>
+    </div>
+  )
+}
+
+function SubLedgerAgingTable({
+  entries,
+  currency,
+  isLight,
+  type,
+}: {
+  entries: any[]
+  currency: string
+  isLight: boolean
+  type: 'receivables' | 'payables'
+}) {
+  const [query, setQuery] = useState('')
+  const q = query.toLowerCase().trim()
+  const filtered = q ? entries.filter((e) => (e.name || '').toLowerCase().includes(q)) : entries
+
+  return (
+    <>
+      {entries.length > 3 && (
+        <div
+          className={cn(
+            'px-3 py-2 border-b border-[var(--theme-card-border)]',
+            isLight ? 'bg-[var(--theme-bg)]' : 'bg-white/[0.02]'
+          )}
+        >
+          <div className="relative">
+            <Search
+              className={cn(
+                'absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3',
+                isLight ? 'text-stone-400' : 'text-stone-500'
+              )}
+            />
+            <input
+              type="text"
+              placeholder={`Search ${type === 'receivables' ? 'customers' : 'vendors'}...`}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className={cn(
+                'w-full pl-7 pr-3 py-1 text-[11px] rounded border outline-none transition-colors',
+                isLight
+                  ? 'bg-white border-stone-200 text-stone-800 placeholder:text-stone-400 focus:border-amber-400'
+                  : 'bg-white/[0.04] border-white/[0.08] text-white placeholder:text-stone-500 focus:border-amber-500/50'
+              )}
+            />
+          </div>
+        </div>
+      )}
+      <div
+        className={cn(
+          'grid grid-cols-[1fr_90px_70px_70px] gap-2 px-3 py-2 text-[10px] uppercase tracking-wider font-medium border-b border-[var(--theme-card-border)]',
+          isLight ? 'bg-[var(--theme-bg)] text-stone-500' : 'bg-white/[0.02] text-stone-500'
+        )}
+      >
+        <span>{type === 'receivables' ? 'Customer' : 'Vendor'}</span>
+        <span className="text-right">Balance</span>
+        <span className="text-right">Current</span>
+        <span className="text-right">Overdue</span>
+      </div>
+      <div className="max-h-[240px] overflow-y-auto">
+        {filtered.length > 0 ? (
+          filtered.map((e: any, i: number) => {
+            const overdue = (e.period1Amount ?? 0) + (e.period2Amount ?? 0) + (e.period3Amount ?? 0)
+            return (
+              <div
+                key={`${e.number}-${i}`}
+                className={cn(
+                  'grid grid-cols-[1fr_90px_70px_70px] gap-2 px-3 py-1.5 text-[12px] border-b last:border-b-0',
+                  i % 2 === 0
+                    ? isLight
+                      ? 'bg-white'
+                      : 'bg-transparent'
+                    : isLight
+                      ? 'bg-stone-50/60'
+                      : 'bg-white/[0.01]',
+                  isLight ? 'border-stone-100' : 'border-white/[0.04]'
+                )}
+              >
+                <span
+                  className={cn('truncate', isLight ? 'text-stone-700' : 'text-stone-300')}
+                  title={e.name}
+                >
+                  {e.name}
+                </span>
+                <span
+                  className={cn(
+                    'text-right font-mono tabular-nums',
+                    isLight ? 'text-stone-800' : 'text-white'
+                  )}
+                >
+                  {formatStatementAmount(e.balanceDue ?? 0, currency)}
+                </span>
+                <span
+                  className={cn(
+                    'text-right font-mono tabular-nums text-[11px]',
+                    isLight ? 'text-green-600' : 'text-green-400'
+                  )}
+                >
+                  {formatStatementAmount(e.currentAmount ?? 0, currency)}
+                </span>
+                <span
+                  className={cn(
+                    'text-right font-mono tabular-nums text-[11px]',
+                    overdue > 0
+                      ? isLight
+                        ? 'text-red-600'
+                        : 'text-red-400'
+                      : isLight
+                        ? 'text-stone-300'
+                        : 'text-stone-600'
+                  )}
+                >
+                  {overdue > 0 ? formatStatementAmount(overdue, currency) : '—'}
+                </span>
+              </div>
+            )
+          })
+        ) : (
+          <div
+            className={cn(
+              'px-3 py-3 text-[11px] text-center',
+              isLight ? 'text-stone-400' : 'text-stone-500'
+            )}
+          >
+            No {type === 'receivables' ? 'customers' : 'vendors'} match your search.
+          </div>
+        )}
+      </div>
+    </>
+  )
+}
+
+function SubLedgerInventoryTable({
+  entries,
+  currency,
+  isLight,
+}: {
+  entries: any[]
+  currency: string
+  isLight: boolean
+}) {
+  const [query, setQuery] = useState('')
+  const q = query.toLowerCase().trim()
+  const filtered = q
+    ? entries.filter(
+        (e) =>
+          (e.name || '').toLowerCase().includes(q) || (e.number || '').toLowerCase().includes(q)
+      )
+    : entries
+
+  return (
+    <>
+      {entries.length > 3 && (
+        <div
+          className={cn(
+            'px-3 py-2 border-b border-[var(--theme-card-border)]',
+            isLight ? 'bg-[var(--theme-bg)]' : 'bg-white/[0.02]'
+          )}
+        >
+          <div className="relative">
+            <Search
+              className={cn(
+                'absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3',
+                isLight ? 'text-stone-400' : 'text-stone-500'
+              )}
+            />
+            <input
+              type="text"
+              placeholder="Search items..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className={cn(
+                'w-full pl-7 pr-3 py-1 text-[11px] rounded border outline-none transition-colors',
+                isLight
+                  ? 'bg-white border-stone-200 text-stone-800 placeholder:text-stone-400 focus:border-amber-400'
+                  : 'bg-white/[0.04] border-white/[0.08] text-white placeholder:text-stone-500 focus:border-amber-500/50'
+              )}
+            />
+          </div>
+        </div>
+      )}
+      <div
+        className={cn(
+          'grid grid-cols-[1fr_60px_80px_90px] gap-2 px-3 py-2 text-[10px] uppercase tracking-wider font-medium border-b border-[var(--theme-card-border)]',
+          isLight ? 'bg-[var(--theme-bg)] text-stone-500' : 'bg-white/[0.02] text-stone-500'
+        )}
+      >
+        <span>Item</span>
+        <span className="text-right">Qty</span>
+        <span className="text-right">Unit Cost</span>
+        <span className="text-right">Total Value</span>
+      </div>
+      <div className="max-h-[240px] overflow-y-auto">
+        {filtered.length > 0 ? (
+          filtered.map((e: any, i: number) => (
+            <div
+              key={`${e.number}-${i}`}
+              className={cn(
+                'grid grid-cols-[1fr_60px_80px_90px] gap-2 px-3 py-1.5 text-[12px] border-b last:border-b-0',
+                i % 2 === 0
+                  ? isLight
+                    ? 'bg-white'
+                    : 'bg-transparent'
+                  : isLight
+                    ? 'bg-stone-50/60'
+                    : 'bg-white/[0.01]',
+                isLight ? 'border-stone-100' : 'border-white/[0.04]'
+              )}
+            >
+              <span
+                className={cn('truncate', isLight ? 'text-stone-700' : 'text-stone-300')}
+                title={e.name}
+              >
+                {e.name}
+              </span>
+              <span
+                className={cn(
+                  'text-right font-mono tabular-nums',
+                  isLight ? 'text-stone-600' : 'text-stone-400'
+                )}
+              >
+                {e.quantity?.toLocaleString()}
+              </span>
+              <span
+                className={cn(
+                  'text-right font-mono tabular-nums text-[11px]',
+                  isLight ? 'text-stone-500' : 'text-stone-500'
+                )}
+              >
+                {formatStatementAmount(e.unitCost ?? 0, currency)}
+              </span>
+              <span
+                className={cn(
+                  'text-right font-mono tabular-nums',
+                  isLight ? 'text-stone-800' : 'text-white'
+                )}
+              >
+                {formatStatementAmount(e.totalValue ?? 0, currency)}
+              </span>
+            </div>
+          ))
+        ) : (
+          <div
+            className={cn(
+              'px-3 py-3 text-[11px] text-center',
+              isLight ? 'text-stone-400' : 'text-stone-500'
+            )}
+          >
+            No items match your search.
+          </div>
+        )}
+      </div>
+    </>
+  )
+}
+
+function SubLedgerBankTable({ entries, isLight }: { entries: any[]; isLight: boolean }) {
+  const [query, setQuery] = useState('')
+  const q = query.toLowerCase().trim()
+  const filtered = q
+    ? entries.filter(
+        (e) =>
+          (e.displayName || e.number || '').toLowerCase().includes(q) ||
+          (e.bankAccountNumber || '').toLowerCase().includes(q) ||
+          (e.currencyCode || '').toLowerCase().includes(q)
+      )
+    : entries
+
+  return (
+    <>
+      {entries.length > 3 && (
+        <div
+          className={cn(
+            'px-3 py-2 border-b border-[var(--theme-card-border)]',
+            isLight ? 'bg-[var(--theme-bg)]' : 'bg-white/[0.02]'
+          )}
+        >
+          <div className="relative">
+            <Search
+              className={cn(
+                'absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3',
+                isLight ? 'text-stone-400' : 'text-stone-500'
+              )}
+            />
+            <input
+              type="text"
+              placeholder="Search bank accounts..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className={cn(
+                'w-full pl-7 pr-3 py-1 text-[11px] rounded border outline-none transition-colors',
+                isLight
+                  ? 'bg-white border-stone-200 text-stone-800 placeholder:text-stone-400 focus:border-amber-400'
+                  : 'bg-white/[0.04] border-white/[0.08] text-white placeholder:text-stone-500 focus:border-amber-500/50'
+              )}
+            />
+          </div>
+        </div>
+      )}
+      <div
+        className={cn(
+          'grid grid-cols-[1fr_120px_80px] gap-2 px-3 py-2 text-[10px] uppercase tracking-wider font-medium border-b border-[var(--theme-card-border)]',
+          isLight ? 'bg-[var(--theme-bg)] text-stone-500' : 'bg-white/[0.02] text-stone-500'
+        )}
+      >
+        <span>Account</span>
+        <span>Bank Account #</span>
+        <span className="text-right">Currency</span>
+      </div>
+      <div className="max-h-[240px] overflow-y-auto">
+        {filtered.length > 0 ? (
+          filtered.map((e: any, i: number) => (
+            <div
+              key={`${e.number}-${i}`}
+              className={cn(
+                'grid grid-cols-[1fr_120px_80px] gap-2 px-3 py-1.5 text-[12px] border-b last:border-b-0',
+                i % 2 === 0
+                  ? isLight
+                    ? 'bg-white'
+                    : 'bg-transparent'
+                  : isLight
+                    ? 'bg-stone-50/60'
+                    : 'bg-white/[0.01]',
+                isLight ? 'border-stone-100' : 'border-white/[0.04]'
+              )}
+            >
+              <span className={cn('truncate', isLight ? 'text-stone-700' : 'text-stone-300')}>
+                {e.displayName || e.number}
+              </span>
+              <span
+                className={cn(
+                  'font-mono text-[11px]',
+                  isLight ? 'text-stone-500' : 'text-stone-500'
+                )}
+              >
+                {e.bankAccountNumber || '—'}
+              </span>
+              <span className={cn('text-right', isLight ? 'text-stone-600' : 'text-stone-400')}>
+                {e.currencyCode || '—'}
+              </span>
+            </div>
+          ))
+        ) : (
+          <div
+            className={cn(
+              'px-3 py-3 text-[11px] text-center',
+              isLight ? 'text-stone-400' : 'text-stone-500'
+            )}
+          >
+            No bank accounts match your search.
+          </div>
+        )}
+      </div>
+    </>
+  )
+}

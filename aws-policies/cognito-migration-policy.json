@@ -1,0 +1,19 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "CognitoUserMigrationPermissions",
+      "Effect": "Allow",
+      "Action": [
+        "cognito-idp:AdminInitiateAuth",
+        "cognito-idp:AdminGetUser",
+        "cognito-idp:AdminCreateUser",
+        "cognito-idp:AdminSetUserPassword"
+      ],
+      "Resource": [
+        "arn:aws:cognito-idp:us-east-1:637502932993:userpool/us-east-1_McfBX9Eit",
+        "arn:aws:cognito-idp:us-east-1:637502932993:userpool/us-east-1_1DEosp9bS"
+      ]
+    }
+  ]
+}

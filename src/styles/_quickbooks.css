@@ -1,0 +1,15 @@
+/* ===============================================
+   QUICKBOOKS COMPONENTS STYLING
+   =============================================== */
+
+/* QuickBooks Base Card */
+.quickbooks-card {
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-card-border);
+  transition: all 0.2s ease;
+}
+
+.quickbooks-card:hover {
+  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(255, 255, 255, 0.02);
+}

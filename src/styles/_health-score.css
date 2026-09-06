@@ -1,0 +1,68 @@
+/* src/styles/_health-score.css */
+
+/* Modern variant scoped to FinancialHealthScore component */
+.health-score-modern {
+  position: relative;
+  background: var(--theme-card-bg) !important;
+  border-color: rgba(245, 158, 11, 0.18) !important;
+}
+
+/* Remove top accent gradient line for this component */
+.health-score-modern.kpi-card::before,
+.health-score-modern.kpi-card:hover::before {
+  background: transparent !important;
+}
+
+.health-score-modern .hs-divider {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.health-score-modern .hs-score-value {
+  font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: 0.01em;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1;
+}
+
+.health-score-modern .hs-score-status {
+  opacity: 0.75;
+}
+
+.health-score-modern .hs-metric-value {
+  font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: 0.01em;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  line-height: 1;
+}
+
+.health-score-modern .hs-metric-unit-prefix,
+.health-score-modern .hs-metric-unit-suffix {
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+.health-score-modern .hs-metric-compact-suffix {
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.health-score-modern .hs-metric-name {
+  font-size: 0.7rem;
+}
+
+.health-score-modern .hs-progress-track {
+  height: 6px;
+  border-radius: 9999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.health-score-modern .hs-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+}

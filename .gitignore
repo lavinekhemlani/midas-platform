@@ -1,0 +1,133 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+/qb-sample-json
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# local env files
+.env.local
+.env*.local
+
+# clerk configuration (can include secrets)
+/.clerk/
+
+# Claude Code files and folders
+.claude/
+claude.json
+.claude.json
+*.claude
+.claudeignore
+claude-artifacts/
+.claude-cache/
+.claude-project/
+CLAUDE.md
+.claude/settings.local.json
+.claude/settings.json
+/.claude
+/.claude/
+.swarm/
+.hive-mind/
+.claude-flow/
+
+scripts/deploy-dev.sh
+
+# Architecture documentation
+architecture.md
+migration_guide.md
+QUICKBOOKS_REENGINEERING_PLAN.md
+GRAPHIC_DESIGNER_MEETING_GUIDE.md
+ONBOARDING_ENHANCEMENT_GUIDE.md
+ONBOARDING_PERSONALIZATION_MAPPING.md
+VISUALIZATION_CAPABILITIES.md
+INVESTOR_PRESENTATION.md
+QUICKBOOKS_DASHBOARD_COMPREHENSIVE_PLAN.md
+QUICKBOOKS_TEST_GUIDE.md
+DASHBOARD_DATA_SOURCES.md
+DASHBOARD_DATA_STRATEGY.md
+QUICKBOOKS_INTEGRATION_STATUS.md
+QUICKBOOKS_IMPLEMENTATION.md
+QUICKBOOKS_PROXY_SETUP.md
+ONBOARDING_REFACTOR_PLAN.md
+AI_QUICKBOOKS_ANALYSIS.md
+
+# API documentation (contains sensitive info)
+docs/quickbooks-api.md
+AI_QUICKBOOKS_ANALYSIS.md
+nul
+scripts/deploy-dev.sh
+
+# QuickBooks sample data
+/qb-sample-json
+
+# Claude Flow generated files
+.mcp.json
+claude-flow.config.json
+memory/
+coordination/
+memory/claude-flow-data.json
+memory/sessions/*
+!memory/sessions/README.md
+memory/agents/*
+!memory/agents/README.md
+coordination/memory_bank/*
+coordination/subtasks/*
+coordination/orchestration/*
+*.db
+*.db-journal
+*.db-wal
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+claude-flow
+hive-mind-prompt-*.txt
+/qb-sample-json
+/.swarm/
+/.hive-mind/
+# Claude Flow generated
+.hive-mind
+.swarm
+
+.serena/
+docs/WAREHOUSE_ARCHITECTURE.md
+node_modules/
+.next/
+.env
+.env.*
+!.env.example

@@ -1,0 +1,209 @@
+/* ===============================================
+   FORM STYLING
+   =============================================== */
+
+.zenith-input,
+.zenith-select,
+.zenith-textarea {
+  background-color: var(--theme-input-bg);
+  border: 1.5px solid rgba(245, 158, 11, 0.2);
+  color: var(--theme-input-text);
+  transition: all 0.2s ease-out;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+.zenith-input {
+  padding-left: 2.25rem; /* For icon */
+}
+/* BYPASS FOR OTP INPUT */
+#confirmationCode {
+  padding-left: 1.25rem;
+}
+
+.zenith-input[autocomplete='one-time-code'] {
+  padding: 0.75rem 1rem; /* Reset padding for one-time code input */
+}
+
+.zenith-input::placeholder,
+.zenith-textarea::placeholder {
+  color: var(--theme-input-placeholder);
+  opacity: 0.7;
+}
+
+.zenith-input:focus,
+.zenith-textarea:focus {
+  outline: none;
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+  background: var(--theme-input-bg);
+}
+
+.zenith-select:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.zenith-select:focus {
+  outline: none;
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.zenith-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--theme-text-primary);
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease-out;
+}
+
+.zenith-label.required::after {
+  content: ' *';
+  color: #ef4444;
+}
+
+/* Select Dropdown */
+.zenith-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 2.5rem;
+  padding-left: 2.25rem; /* For icon */
+}
+
+/* Theme-specific arrow colors and background */
+html.theme-light .zenith-select,
+html.theme-light .zenith-select:focus {
+  background-color: var(--theme-input-bg);
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+html.theme-dark .zenith-select,
+html.theme-dark .zenith-select:focus {
+  background-color: var(--theme-input-bg);
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+.zenith-select:invalid {
+  color: var(--theme-input-placeholder);
+}
+.zenith-select:valid {
+  color: var(--theme-input-text);
+}
+
+.zenith-form-group {
+  margin-bottom: 1.5rem;
+}
+.zenith-form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+.zenith-form-row.two-columns {
+  grid-template-columns: 1fr 1fr;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+/* ===============================================
+   SELECT DROPDOWN OPTIONS FIX
+   =============================================== */
+
+/* Base select option styling - theme-aware */
+.zenith-select option {
+  padding: 8px 12px;
+  border: none;
+}
+
+/* Light theme dropdown options */
+html.theme-light .zenith-select {
+  color-scheme: light;
+}
+
+html.theme-light .zenith-select option {
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+html.theme-light .zenith-select option:checked,
+html.theme-light .zenith-select option:hover {
+  background-color: rgba(245, 158, 11, 0.2) !important;
+  color: #1e293b !important;
+}
+
+/* Minimal theme dropdown options */
+html.theme-dark .zenith-select {
+  color-scheme: dark;
+}
+
+html.theme-dark .zenith-select option {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+html.theme-dark .zenith-select option:checked,
+html.theme-dark .zenith-select option:hover {
+  background-color: rgba(245, 158, 11, 0.25) !important;
+  color: #ffffff !important;
+}
+
+/* ===============================================
+   AUTH PAGE INPUT STYLING (bottom border only)
+   =============================================== */
+
+.zenith-input-auth {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--theme-input-border);
+  border-radius: 0;
+  color: var(--theme-input-text);
+  transition: all 0.3s ease-out;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  padding: 0.75rem 1rem;
+  padding-left: 2.25rem;
+  width: 100%;
+}
+
+.zenith-input-auth::placeholder {
+  color: var(--theme-input-placeholder);
+  opacity: 0.7;
+}
+
+.zenith-input-auth:focus {
+  outline: none;
+  border-bottom-color: #f59e0b;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+/* ===============================================
+   DATE INPUT CALENDAR ICON STYLING
+   =============================================== */
+
+/* Dark themes - invert the calendar icon to make it light */
+html.theme-dark input[type='date']::-webkit-calendar-picker-indicator,
+html.theme-dark input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+  cursor: pointer;
+}
+
+/* Light theme - keep default dark icon */
+html.theme-light input[type='date']::-webkit-calendar-picker-indicator {
+  filter: none;
+  cursor: pointer;
+}
