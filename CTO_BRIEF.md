@@ -59,6 +59,11 @@ Give the candidate this repo and 48 hours. Ask for a written answer to:
 A strong candidate will find the gaps above without being told, and will have an opinion
 on the agent architecture in `AGENTIC_SYSTEM_ANALYSIS.md`.
 
+## Restarting it
+See **`RESTART.md`** — the complete runbook: every AWS resource to create, all 13
+DynamoDB tables, every OAuth app to re-register, all 61 environment variables
+(`.env.example`), hosting options and a suggested order of work.
+
 ## Where to start reading
 - `MIDAS_CONTEXT.md` — the best single overview
 - `AGENTIC_SYSTEM_ANALYSIS.md` — the AI/agent layer
