@@ -77,3 +77,62 @@ eight further hardcoded personal addresses in scripts and `src/app/capital/*`
 were replaced with `@example.com` placeholders. This is personal data, not
 product code. Nothing functional was removed. `src/data/biotech-investors.ts`
 now exports an empty array.
+
+---
+
+## Verified findings (independent code audit, 8 Sep 2026)
+
+These were found by reading the code, not by running it. They are the honest state
+of the repository and are good ground for interview discussion.
+
+### First-run blocker
+`src/amplify-config.ts` throws **at module scope** if `NEXT_PUBLIC_APP_URL` is unset.
+The root layout imports it, so *every* page — including the static marketing pages —
+fails to render without that one variable. Set it before anything else.
+
+### How auth actually works
+AWS Cognito via Amplify v6. Two independent layers:
+
+1. **Edge** — `src/middleware.ts` reads `accessToken` / `idToken` cookies and calls
+   `TokenVerifier.verify()` against a hardcoded prefix list
+   (`/reports /settings /analytics /customers /expenses /invoicing /learn /quickbooks
+   /projects /classes /budgets /documents /bc`) plus `/onboarding`. Any failure
+   redirects to `/sign-in`. It needs the **server-side** `COGNITO_USER_POOL_ID` and
+   `COGNITO_USER_POOL_CLIENT_ID`; without them `verifier-factory.ts` throws and you
+   get a sign-in ↔ onboarding bounce loop even though the client vars are set.
+2. **Client** — the root layout mounts `ConfigureAmplify` and `SessionProvider`;
+   `src/components/layout/AuthRedirectHandler.tsx` does the redirecting.
+
+Sign-up is a **direct browser → Cognito call**. No Next.js API route is involved and
+nothing is written to DynamoDB at that point. The first DynamoDB write happens later,
+when `SessionProvider` calls `GET /api/users/me/profile` (`USERS_TABLE_NAME`).
+
+### Authorization gaps — worth an opinion
+- `/dashboard`, `/coa`, `/journal`, `/memories`, `/notifications`, `/sales`,
+  `/shopify/*`, `/qb/*`, `/support`, `/visualizations/*`, `/validations-test` have
+  **no edge gate at all**. The HTML shell is served to anonymous users; only the
+  `/api` calls 401. Data is not exposed, but the routing model is inconsistent.
+- All 13 `/dev/*` pages are **entirely ungated** — not in `protectedRoutes`, not
+  under `(main)`.
+- `middleware.ts` computes `isPublicRoute` and never uses it. Dead code — and
+  because `publicRoutes` contains `/` and the test is `startsWith`, it would have
+  matched every path anyway.
+
+### Rendering
+`src/app/(main)/layout.tsx` sets `export const dynamic = 'force-dynamic'`, so all 72
+pages under `(main)` are non-prerenderable. No page anywhere uses
+`generateStaticParams` or `revalidate`. That is the reason this app cannot be
+statically exported without changes.
+
+### Dead routes
+`next.config.ts` declares 11 permanent (308) redirects that fire before middleware —
+`/reports* → /qb/reports*`, `/sales* → /qb/sales*`, `/expenses* → /qb/expenses*`,
+`/journal`, `/forecasting`, `/aqua* → /bc*`. The legacy pages under `/reports` and
+`/sales` still exist on disk but are **unreachable in production**. Separately,
+`/qb/expenses` had no index page, so the `/expenses → /qb/expenses` redirect
+dead-ended in a 404; a redirect to `/qb/expenses/vendors` now closes that chain.
+
+### Leftovers
+`img.clerk.com` is still in `next.config.ts` `remotePatterns` and `NEXTAUTH_URL`
+appears in `.env.example.generated`. Neither is used — there is no Clerk and no
+NextAuth in this codebase. Don't let them mislead you.
