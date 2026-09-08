@@ -2,6 +2,12 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  // Set MIRROR_BASE_PATH=/tech only when building the static demo mirror.
+  // Left unset for normal local dev so the app runs at localhost:3000 root.
+  ...(process.env.MIRROR_BASE_PATH
+    ? { basePath: process.env.MIRROR_BASE_PATH, assetPrefix: process.env.MIRROR_BASE_PATH }
+    : {}),
+
   // ✅ These should be at the root level of the config
   eslint: {
     ignoreDuringBuilds: true,
@@ -13,6 +19,12 @@ const nextConfig: NextConfig = {
   // Redirects for multi-provider architecture migration
   async redirects() {
     return [
+      // /qb/expenses has no index page - land on vendors
+      {
+        source: '/qb/expenses',
+        destination: '/qb/expenses/vendors',
+        permanent: false,
+      },
       // QuickBooks routes - redirect legacy paths to /qb/
       {
         source: '/reports',
@@ -70,6 +82,7 @@ const nextConfig: NextConfig = {
   },
 
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
